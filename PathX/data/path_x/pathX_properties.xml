@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    The properties in this file setup a Harry Potter flavor of this game called
+    The Sorting Hat. Note that by swapping out all these settings we could easily
+    change the flavor.
+-->
+<properties>
+    <property_list>
+        <!-- ALL THE IMAGES TO BE USED IN THE GAME -->
+        
+        <property name ="IMAGE_BUTTON_EXIT"                 value="./path_x/ButtonExit.png"></property>
+        <property name ="IMAGE_BUTTON_EXIT_MOUSE_OVER"      value="./path_x/ButtonExitMouseOver.png"></property>
+        <property name ="IMAGE_BUTTON_HOME"                 value="./path_x/ButtonHome.png"></property>
+        <property name ="IMAGE_BUTTON_HOME_MOUSE_OVER"      value="./path_x/ButtonHomeMouseOver.png"></property>
+        
+        <property name="IMAGE_BACKGROUND_MENU"              value="./path_x/MainMenuBackground.png"></property>
+        <property name="IMAGE_BACKGROUND_LEVEL_SELECT"      value="./path_x/LevelSelectBackground.png"></property>
+        <property name="IMAGE_BACKGROUND_SETTINGS"          value="./path_x/SettingsBackground.png"></property>
+        <property name="IMAGE_BACKGROUND_HELP"              value="./path_x/HelpBackground.png"></property>
+        <property name="IMAGE_BACKGROUND_GAME"              value="./path_x/GameBackground.png"></property>
+        
+        <property name="IMAGE_BUTTON_PLAY"                  value="./path_x/ButtonPlay.png"></property>
+        <property name="IMAGE_BUTTON_PLAY_MOUSE_OVER"       value="./path_x/ButtonPlayMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_RESET"                 value="./path_x/ButtonReset.png"></property>
+        <property name="IMAGE_BUTTON_RESET_MOUSE_OVER"      value="./path_x/ButtonResetMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS"              value="./path_x/ButtonSettings.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS_MOUSE_OVER"   value="./path_x/ButtonSettingsMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_HELP"                  value="./path_x/ButtonHelp.png"></property>
+        <property name="IMAGE_BUTTON_HELP_MOUSE_OVER"       value="./path_x/ButtonHelpMouseOver.png"></property>
+        
+        <property name="IMAGE_BUTTON_SETTINGS_OPTION"           value="./path_x/ButtonSettingsOption.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS_OPTION_SELECTED"  value="./path_x/ButtonSettingsOptionSelected.png"></property>
+        
+        <property name="IMAGE_LEVEL_SELECT_MAP"                 value="./path_x/Map.png"></property>
+        
+        <property name="IMAGE_BUTTON_UP_ARROW"                          value="./path_x/ArrowUp.png"></property>
+        <property name="IMAGE_BUTTON_UP_ARROW_MOUSE_OVER"               value="./path_x/ArrowUpMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_RIGHT_ARROW"                       value="./path_x/ArrowRight.png"></property>
+        <property name="IMAGE_BUTTON_RIGHT_ARROW_MOUSE_OVER"            value="./path_x/ArrowRightMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_LEFT_ARROW"                        value="./path_x/ArrowLeft.png"></property>
+        <property name="IMAGE_BUTTON_LEFT_ARROW_MOUSE_OVER"             value="./path_x/ArrowLeftMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_DOWN_ARROW"                        value="./path_x/ArrowDown.png"></property>
+        <property name="IMAGE_BUTTON_DOWN_ARROW_MOUSE_OVER"             value="./path_x/ArrowDownMouseOver.png"></property>
+        
+        <property name="IMAGE_BUTTON_START"                             value="./path_x/ButtonStart.png"></property>
+        <property name="IMAGE_BUTTON_START_MOUSE_OVER"                  value="./path_x/ButtonStartMouseOver.png"></property>
+        
+        <property name="IMAGE_BUTTON_LEVEL_UNLOCKED"        value="./path_x/ButtonLevelUnlocked.png"></property>
+        <property name="IMAGE_BUTTON_LEVEL_LOCKED"          value="./path_x/ButtonLevelLocked.png"></property>
+        <property name="IMAGE_BUTTON_LEVEL_COMPLETED"       value="./path_x/ButtonLevelCompleted.png"></property>
+        <property name="IMAGE_BUTTON_LEVEL_MOUSE_OVER"      value="./path_x/ButtonLevelMouseOver.png"></property>
+        
+        <property name="IMAGE_DIALOG_BOX"                   value="./path_x/DialogInfo.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE"                 value="./path_x/ButtonClose.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE_MOUSE_OVER"      value="./path_x/ButtonCloseMouseOver.png"></property>
+        
+        
+        <property name="IMAGE_WINDOW_ICON"                  value="./path_x/WindowIcon.png"></property>
+
+
+        <!-- ALL THE TEXT TO BE DISPLAYED -->
+        <property name="TEXT_ERROR_LOADING_AUDIO"               value="Error Loading an Audio File"></property>
+        <property name="TEXT_ERROR_LOADING_LEVEL"               value="Error Loading a Level File"></property>
+        <property name="TEXT_ERROR_LOADING_RECORD"              value="Error Loading the Player Record"></property>
+        <property name="TEXT_ERROR_LOADING_XML_FILE"            value="Error Loading an XML File"></property>
+        <property name="TEXT_ERROR_SAVING_RECORD"               value="Error Saving the Player Record"></property>
+
+        <property name="TEXT_PROMPT_EXIT"                       value="Are you sure you wish to exit?"></property>
+        <property name="TEXT_TITLE_BAR_GAME"                    value="PathX"></property>
+        <property name="TEXT_TITLE_BAR_ERROR"                   value="An error has occurred"></property>                
+        
+
+    </property_list>
+
+</properties>
