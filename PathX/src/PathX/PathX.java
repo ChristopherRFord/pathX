@@ -70,12 +70,14 @@ public class PathX
         IMAGE_BUTTON_HOME,
         IMAGE_BUTTON_HOME_MOUSE_OVER,
         
+        //SCREEN BACKGROUNDS
         IMAGE_BACKGROUND_MENU,
         IMAGE_BACKGROUND_LEVEL_SELECT,        
         IMAGE_BACKGROUND_SETTINGS,
         IMAGE_BACKGROUND_HELP,
         IMAGE_BACKGROUND_GAME,
         
+        //MAIN MENU IMAGES
         IMAGE_BUTTON_PLAY,
         IMAGE_BUTTON_PLAY_MOUSE_OVER,
         IMAGE_BUTTON_RESET,
@@ -85,11 +87,12 @@ public class PathX
         IMAGE_BUTTON_HELP,
         IMAGE_BUTTON_HELP_MOUSE_OVER,
         
+        //SETTINGS IMAGES
         IMAGE_BUTTON_SETTINGS_OPTION,
         IMAGE_BUTTON_SETTINGS_OPTION_SELECTED,
         
+        //LEVEL SELECT IMAGES
         IMAGE_LEVEL_SELECT_MAP,
-        
         IMAGE_BUTTON_LEVEL_UNLOCKED,
         IMAGE_BUTTON_LEVEL_LOCKED,
         IMAGE_BUTTON_LEVEL_COMPLETED,
@@ -110,6 +113,11 @@ public class PathX
         IMAGE_BUTTON_START,
         IMAGE_BUTTON_START_MOUSE_OVER,
 
+        //GAME IMAGES - LEVEL1
+        LEVEL1,
+        LEVEL2,
+        
+        
         IMAGE_WINDOW_ICON,
         
         /* GAME TEXT */

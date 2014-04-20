@@ -15,6 +15,8 @@ public class PathXConstants
     public static String PROPERTIES_FILE_NAME = "properties.xml";
     public static String PROPERTIES_SCHEMA_FILE_NAME = "properties_schema.xsd";    
     public static String PATH_DATA = "./data/";
+    public static String PATH_LEVELS = "./levels/";
+    public static String LEVEL_SCHEMA_FILE_NAME = "PathXLevelSchema.xsd";
     
     // EACH SCREEN HAS ITS OWN BACKGROUND TYPE
     public static final String BACKGROUND_TYPE = "BACKGROUND_TYPE";
@@ -55,6 +57,34 @@ public class PathXConstants
     public static final String GAME_SCREEN_STATE = "GAME_SCREEN_STATE";
     public static final String SETTINGS_SCREEN_STATE = "SETTINGS_SCREEN_STATE";
     public static final String HELP_SCREEN_STATE = "HELP_SCREEN_STATE";
+    
+     // CONSTANTS FOR LOADING DATA FROM THE XML FILES
+    // THESE ARE THE XML NODES
+    public static final String LEVEL_NODE = "level";
+    public static final String INTERSECTIONS_NODE = "intersections";
+    public static final String INTERSECTION_NODE = "intersection";
+    public static final String ROADS_NODE = "roads";
+    public static final String ROAD_NODE = "road";
+    public static final String START_INTERSECTION_NODE = "start_intersection";
+    public static final String DESTINATION_INTERSECTION_NODE = "destination_intersection";
+    public static final String MONEY_NODE = "money";
+    public static final String POLICE_NODE = "police";
+    public static final String BANDITS_NODE = "bandits";
+    public static final String ZOMBIES_NODE = "zombies";
+
+    // AND THE ATTRIBUTES FOR THOSE NODES
+    public static final String NAME_ATT = "name";
+    public static final String IMAGE_ATT = "image";
+    public static final String ID_ATT = "id";
+    public static final String X_ATT = "x";
+    public static final String Y_ATT = "y";
+    public static final String OPEN_ATT = "open";
+    public static final String INT_ID1_ATT = "int_id1";
+    public static final String INT_ID2_ATT = "int_id2";
+    public static final String SPEED_LIMIT_ATT = "speed_limit";
+    public static final String ONE_WAY_ATT = "one_way";
+    public static final String AMOUNT_ATT = "amount";
+    public static final String NUM_ATT = "num";
     
     
     // ANIMATION SPEED

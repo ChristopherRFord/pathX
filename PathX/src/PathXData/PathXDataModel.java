@@ -6,6 +6,7 @@
 
 package PathXData;
 
+import PathX.PathX;
 import static PathX.PathXConstants.*;
 
 import PathX.PathXGame;
@@ -14,6 +15,7 @@ import java.util.TreeMap;
 import mini_game.MiniGame;
 import mini_game.MiniGameDataModel;
 import mini_game.Viewport;
+import properties_manager.PropertiesManager;
 
 /**
  *
@@ -33,9 +35,9 @@ public class PathXDataModel extends MiniGameDataModel
         this.game = game;
         
         levels = new TreeMap<String, GameLevel>();
-        levels.put(LEVEL_BUTTON_TYPE1, new GameLevel("South1,CA", 20, GameLevel.GameLevelState.UNLOCKED_STATE.toString()));
-        levels.put(LEVEL_BUTTON_TYPE2, new GameLevel("South2,CA", 40, GameLevel.GameLevelState.LOCKED_STATE.toString()));
-        levels.put(LEVEL_BUTTON_TYPE3, new GameLevel("South3,CA", 60, GameLevel.GameLevelState.LOCKED_STATE.toString()));
+        levels.put(LEVEL_BUTTON_TYPE1, new GameLevel("South1,CA", 20, GameLevel.GameLevelState.UNLOCKED_STATE.toString(), PATH_LEVELS + PropertiesManager.getPropertiesManager().getProperty(PathX.PathXPropertyType.LEVEL1)));
+        levels.put(LEVEL_BUTTON_TYPE2, new GameLevel("South2,CA", 40, GameLevel.GameLevelState.UNLOCKED_STATE.toString(), PATH_LEVELS + PropertiesManager.getPropertiesManager().getProperty(PathX.PathXPropertyType.LEVEL2)));
+        //levels.put(LEVEL_BUTTON_TYPE3, new GameLevel("South3,CA", 60, GameLevel.GameLevelState.LOCKED_STATE.toString()));
     }
         
     @Override

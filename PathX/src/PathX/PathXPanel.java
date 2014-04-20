@@ -91,11 +91,12 @@ public class PathXPanel extends JPanel
             Sprite b = game.LevelSelectScreen.getDecors().get(LEVEL_SELECT_MAP_TYPE);
             renderSprite(g, b);
             
-            Collection<Sprite> buttonSprites = ((LevelSelectScreen)game.getCurrentScreen()).getLevelButtons().values();
+            Collection<Sprite> buttonSprites = ((LevelSelectScreen)game.getCurrentScreen()).getButtons().values();
             
             for (Sprite s : buttonSprites)
             {
-                renderSprite(g, s);
+                if (s.getSpriteType().getSpriteTypeID().contains("LEVEL_BUTTON_TYPE"))
+                    renderSprite(g, s);
             }
     }
     
@@ -127,9 +128,22 @@ public class PathXPanel extends JPanel
        // AND NOW RENDER THE BUTTONS
         Collection<Sprite> buttonSprites = game.getCurrentScreen().getButtons().values();
         
-        for (Sprite s : buttonSprites)
+        if (game.getCurrentScreen().getScreentype().equals(LEVEL_SELECT_SCREEN_STATE))
         {
-            renderSprite(g, s);
+            for (Sprite s : buttonSprites)
+            {
+                if (!s.getSpriteType().getSpriteTypeID().contains("LEVEL_BUTTON_TYPE"))
+                {
+                    renderSprite(g, s);
+                }
+            }
+        }
+        else
+        {
+            for (Sprite s : buttonSprites)
+            {
+                renderSprite(g, s);
+            }
         }
     }
     

@@ -11,9 +11,11 @@ import static PathX.PathXConstants.*;
 import PathX.PathXGame;
 import PathXData.GameLevel;
 import PathXData.PathXDataModel;
+import PathXData.PathXLevelLoader;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Iterator;
 import mini_game.Sprite;
 import mini_game.SpriteType;
@@ -204,6 +206,9 @@ public class GameScreen extends PathXScreen
                 buttons.remove(CLOSE_BUTTON_TYPE);
             }
         });
+        
+        PathXLevelLoader levelLoader = new PathXLevelLoader(new File(PATH_LEVELS + LEVEL_SCHEMA_FILE_NAME));
+        levelLoader.loadLevel(level);
     }
 
     @Override

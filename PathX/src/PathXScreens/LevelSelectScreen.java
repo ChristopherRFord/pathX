@@ -17,7 +17,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
-import java.util.TreeMap;
 import mini_game.Sprite;
 import mini_game.SpriteType;
 import properties_manager.PropertiesManager;
@@ -29,7 +28,6 @@ import properties_manager.PropertiesManager;
 public class LevelSelectScreen extends PathXScreen
 {
     private GameLevel selectedLevel;
-    private TreeMap<String, Sprite> levelButtons;
 
     
     public LevelSelectScreen(PathXGame game)
@@ -37,8 +35,6 @@ public class LevelSelectScreen extends PathXScreen
         super(game);
         
         screenType = LEVEL_SELECT_SCREEN_STATE;
-        
-        levelButtons = new TreeMap<String, Sprite>();
     }
 
     @Override
@@ -216,14 +212,17 @@ public class LevelSelectScreen extends PathXScreen
         decors.get(LEVEL_SELECT_MAP_TYPE).setX(decors.get(LEVEL_SELECT_MAP_TYPE).getX() + x);
         decors.get(LEVEL_SELECT_MAP_TYPE).setY(decors.get(LEVEL_SELECT_MAP_TYPE).getY() + y);
         
-        Iterator<Sprite> buttonsIt = levelButtons.values().iterator();
+        Iterator<Sprite> buttonsIt = buttons.values().iterator();
          
         while (buttonsIt.hasNext())
         {
             Sprite button = buttonsIt.next();
-
+            
+            if(button.getSpriteType().getSpriteTypeID().contains("LEVEL_BUTTON_TYPE"))
+            {
                 button.setX(button.getX() + x);
                 button.setY(button.getY() + y);
+            }
 
         }
  
@@ -262,36 +261,6 @@ public class LevelSelectScreen extends PathXScreen
                 }
             }
         }
-        
-        buttonsIt = levelButtons.values().iterator();
-        
-        while (buttonsIt.hasNext())
-        {
-            Sprite button = buttonsIt.next();
-            
-            // ARE WE ENTERING A BUTTON?
-            if (button.getState().equals(PathXButtonState.VISIBLE_STATE.toString()))
-            {
-
-                if (button.containsPoint(data.getLastMouseX(), data.getLastMouseY()))
-                {
-                    button.setState(PathXButtonState.MOUSE_OVER_STATE.toString());
-                    selectedLevel = data.getLevels().get(button.getSpriteType().getSpriteTypeID());
-                }
-
-            }
-            // ARE WE EXITING A BUTTON?
-            else if (button.getState().equals(PathXButtonState.MOUSE_OVER_STATE.toString()))
-            {
-                if (!button.containsPoint(data.getLastMouseX(), data.getLastMouseY()))
-                {
-                    button.setState(PathXButtonState.VISIBLE_STATE.toString());
-                    
-                    selectedLevel = null;
-                }
-            }
-            
-        }
     }
 
     @Override
@@ -310,15 +279,7 @@ public class LevelSelectScreen extends PathXScreen
             button.setState(PathXButtonState.VISIBLE_STATE.toString());
             button.setEnabled(true);
         }
-        buttonsIt = levelButtons.values().iterator();
         
-        while (buttonsIt.hasNext())
-        {
-            Sprite button = buttonsIt.next();
-            
-            button.setState(PathXButtonState.VISIBLE_STATE.toString());
-            button.setEnabled(true);
-        }
         // WE'LL USE AND REUSE THESE FOR LOADING STUFF
         BufferedImage img;
         SpriteType sT;
@@ -335,9 +296,9 @@ public class LevelSelectScreen extends PathXScreen
         img = game.loadImage(imgPath + levelButtonMouseOver);
         sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
         s = new Sprite(sT, 5, 150, 0, 0, PathXButtonState.VISIBLE_STATE.toString());
-        levelButtons.put(LEVEL_BUTTON_TYPE1, s);
+        buttons.put(LEVEL_BUTTON_TYPE1, s);
         
-        levelButtons.get(LEVEL_BUTTON_TYPE1).setActionListener(new ActionListener(){
+        buttons.get(LEVEL_BUTTON_TYPE1).setActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae)
             {
@@ -357,9 +318,9 @@ public class LevelSelectScreen extends PathXScreen
         img = game.loadImage(imgPath + levelButtonMouseOver);
         sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
         s = new Sprite(sT, 50, 265, 0, 0, PathXButtonState.VISIBLE_STATE.toString());
-        levelButtons.put(LEVEL_BUTTON_TYPE2, s);
+        buttons.put(LEVEL_BUTTON_TYPE2, s);
         
-        levelButtons.get(LEVEL_BUTTON_TYPE2).setActionListener(new ActionListener(){
+        buttons.get(LEVEL_BUTTON_TYPE2).setActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
@@ -370,7 +331,7 @@ public class LevelSelectScreen extends PathXScreen
                 }
             }
         }); 
-        
+        /*
         levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE3).getProperty();
         sT = new SpriteType(LEVEL_BUTTON_TYPE3);
         img = game.loadImage(imgPath + levelButton);
@@ -379,9 +340,9 @@ public class LevelSelectScreen extends PathXScreen
         img = game.loadImage(imgPath + levelButtonMouseOver);
         sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
         s = new Sprite(sT, 100, 320, 0, 0, PathXButtonState.VISIBLE_STATE.toString());
-        levelButtons.put(LEVEL_BUTTON_TYPE3, s);
+        buttons.put(LEVEL_BUTTON_TYPE3, s);
         
-        levelButtons.get(LEVEL_BUTTON_TYPE3).setActionListener(new ActionListener(){
+        buttons.get(LEVEL_BUTTON_TYPE3).setActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
@@ -392,7 +353,7 @@ public class LevelSelectScreen extends PathXScreen
                 }
             }
         }); 
-
+        */
     }
 
     @Override
@@ -401,9 +362,9 @@ public class LevelSelectScreen extends PathXScreen
         game.setGUIButtons(null);
 
         
-        levelButtons.remove(levelButtons.get(LEVEL_BUTTON_TYPE1).getSpriteType().getSpriteTypeID().toString());
-        levelButtons.remove(levelButtons.get(LEVEL_BUTTON_TYPE2).getSpriteType().getSpriteTypeID().toString());
-        levelButtons.remove(levelButtons.get(LEVEL_BUTTON_TYPE3).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE1).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE2).getSpriteType().getSpriteTypeID().toString());
+//        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE3).getSpriteType().getSpriteTypeID().toString());
         
         Iterator<Sprite> buttonsIt = buttons.values().iterator();
          
@@ -411,16 +372,6 @@ public class LevelSelectScreen extends PathXScreen
         {
             Sprite button = buttonsIt.next();
 
-            button.setState(PathXButtonState.INVISIBLE_STATE.toString());
-            button.setEnabled(false);
-        }
-
-        buttonsIt = levelButtons.values().iterator();
-        
-        while (buttonsIt.hasNext())
-        {
-            Sprite button = buttonsIt.next();
-            
             button.setState(PathXButtonState.INVISIBLE_STATE.toString());
             button.setEnabled(false);
         }
@@ -451,6 +402,4 @@ public class LevelSelectScreen extends PathXScreen
     }
     
     public GameLevel getSelectedLevel() { return selectedLevel; }
-    public TreeMap<String, Sprite> getLevelButtons() { return levelButtons; }
-
 }
