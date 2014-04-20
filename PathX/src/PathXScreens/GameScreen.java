@@ -12,8 +12,11 @@ import PathX.PathXGame;
 import PathXData.GameLevel;
 import PathXData.PathXDataModel;
 import PathXData.PathXLevelLoader;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Iterator;
@@ -28,6 +31,10 @@ import properties_manager.PropertiesManager;
 public class GameScreen extends PathXScreen
 {
     private GameLevel level;
+    
+    private Sprite backgroundSprite;
+    private Image startingLocationImage;
+    private Image destinationLocationImage;
     
     public GameScreen(PathXGame game)
     {
@@ -157,6 +164,47 @@ public class GameScreen extends PathXScreen
                 game.enter(game.MainMenuScreen);
             }
         });
+        
+                // ARROW UP
+        buttons.get(UP_ARROW_BUTTON_TYPE).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                scroll(0, VIEWPORT_INC);
+            }
+        });
+        
+        // ARROW RIGHT
+        buttons.get(RIGHT_ARROW_BUTTON_TYPE).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {   
+                scroll(VIEWPORT_INC, 0);
+            }
+        });
+        
+        // ARROW LEFT
+        buttons.get(LEFT_ARROW_BUTTON_TYPE).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {   
+                scroll(-VIEWPORT_INC, 0);
+            }
+        });   
+        
+        // ARROW DOWN
+        buttons.get(DOWN_ARROW_BUTTON_TYPE).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                scroll(0, -VIEWPORT_INC);
+            }
+        }); 
+    }
+    
+    private void scroll(int x, int y)
+    {
+        data.getViewport().scroll(x, y);
     }
 
     @Override
@@ -172,6 +220,15 @@ public class GameScreen extends PathXScreen
             button.setState(PathXButtonState.VISIBLE_STATE.toString());
             button.setEnabled(true);
         }
+        
+        // KEY LISTENER - LET'S US PROVIDE CUSTOM RESPONSES
+        game.setKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent ke)
+            {   
+                respondToKeyPress(ke.getKeyCode());    
+            }
+        });
         
         // WE'LL USE AND REUSE THESE FOR LOADING STUFF
         BufferedImage img;
@@ -209,6 +266,20 @@ public class GameScreen extends PathXScreen
         
         PathXLevelLoader levelLoader = new PathXLevelLoader(new File(PATH_LEVELS + LEVEL_SCHEMA_FILE_NAME));
         levelLoader.loadLevel(level);
+        
+         // LOAD THE BACKGROUND
+        img = game.loadImage(imgPath + "path_x/" + level.getBackgroundImageFileName());
+        sT = new SpriteType(BACKGROUND_TYPE);
+        sT.addState(GAME_SCREEN_STATE, img);
+        backgroundSprite = new Sprite(sT, 0, 0, 0, 0, GAME_SCREEN_STATE);
+        
+        // LOAD THE STARTING IMG
+        startingLocationImage = game.loadImage(imgPath + "path_x/" + level.getStartingLocationImageFileName());
+
+  
+        // LOAD THE DEST IMG
+        destinationLocationImage = game.loadImage(imgPath + "path_x/" + level.getDestinationImageFileName());
+
     }
 
     @Override
@@ -224,8 +295,45 @@ public class GameScreen extends PathXScreen
             button.setState(PathXButtonState.INVISIBLE_STATE.toString());
             button.setEnabled(false);
         }
+        
+        data.getViewport().scroll(-(data.getViewport().getViewportX()),
+                                    -(data.getViewport().getViewportY()));
+        
+        // KEY LISTENER - LET'S US PROVIDE CUSTOM RESPONSES
+        game.setKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent ke){}});
     }
     
     public void setGameLevel(GameLevel level) { this.level = level; }
     public GameLevel getLevel() { return level; }
+    
+    public Sprite getBackgroundSprite()             { return backgroundSprite;          }
+    public Image getStartingLocationImage()       { return startingLocationImage;    }
+    public Image getDestinationLocationImage()    { return destinationLocationImage; }
+    
+    
+    /**
+     * Called when the user presses a key on the keyboard.
+     */    
+    public void respondToKeyPress(int keyCode)
+    {
+        // WASD MOVES THE VIEWPORT
+        if (keyCode == KeyEvent.VK_DOWN)
+        {
+                scroll(0, -VIEWPORT_INC);
+        }
+        else if (keyCode == KeyEvent.VK_RIGHT)
+        {
+                scroll(-VIEWPORT_INC, 0);
+        }
+        else if (keyCode == KeyEvent.VK_UP)
+        {
+                scroll(0, VIEWPORT_INC);
+        }
+        else if (keyCode == KeyEvent.VK_LEFT)
+        {
+                scroll(VIEWPORT_INC, 0);
+        }
+    }
 }

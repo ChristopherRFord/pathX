@@ -1,9 +1,11 @@
 package PathXData;
 
+import PathX.PathXGame;
 import static PathXData.GameLevel.GameLevelState.*;
 import PathXGraph.Intersection;
 import PathXGraph.Road;
 import java.util.ArrayList;
+import mini_game.Sprite;
 
 /**
  * Contains all the information that defines a Game Level 
@@ -11,6 +13,9 @@ import java.util.ArrayList;
  */
 public class GameLevel
 {
+    
+    PathXGame game;
+    
     // EVERY LEVEL HAS A NAME
     String levelName;
     
@@ -28,6 +33,7 @@ public class GameLevel
     // THE STARTING LOCATION AND DESTINATION
     Intersection startingLocation;
     String backgroundImageFileName;
+    Sprite backgroundImage;
     Intersection destination;
     String destinationImageFileName;
 
@@ -53,36 +59,6 @@ public class GameLevel
         roads = new ArrayList();    
     }
 
-    /**
-     * Initializes this level to get it up and running.
-     */
-    public void init (  String initLevelName,
-                        String initBackgroundImageFileName,
-                        String initStartingLocationImageFileName,
-                        int startingLocationX, 
-                        int startingLocationY,
-                        String initDestinationImageFileName,
-                        int destinationX, 
-                        int destinationY)
-    {
-        // THESE THINGS ARE KNOWN
-        levelName = initLevelName;
-        backgroundImageFileName = initBackgroundImageFileName;
-        startingLocationImageFileName = initStartingLocationImageFileName;
-        destinationImageFileName = initDestinationImageFileName;
-        
-        // AND THE STARTING LOCATION AND DESTINATION
-        startingLocation = new Intersection(startingLocationX, startingLocationY);
-        intersections.add(startingLocation);
-        destination = new Intersection(destinationX, destinationY);
-        intersections.add(destination);
-        
-        // THESE THINGS WILL BE PROVIDED DURING LEVEL EDITING
-        money = 0;
-        numPolice = 0;
-        numBandits = 0;
-        numZombies = 0;
-    }
     
     // ACCESSOR METHODS
     public String                   getLevelName()                      {   return levelName;                       }
@@ -148,11 +124,11 @@ public class GameLevel
     public String getProperty()
     {
         if (state.equals(UNLOCKED_STATE.toString()))
-            return "./path_x/ButtonLevelUnlocked.png";
+            return "./path_x/buttons/ButtonLevelUnlocked.png";
         if (state.equals(LOCKED_STATE.toString()))
-            return "./path_x/ButtonLevelLocked.png";
+            return "./path_x/buttons/ButtonLevelLocked.png";
         if (state.equals(COMPLETED_STATE.toString()))
-            return "./path_x/ButtonLevelCompleted.png";
+            return "./path_x/buttons/ButtonLevelCompleted.png";
         else
             return "";
     }

@@ -54,6 +54,7 @@ public class PathXLevelLoader
             level.reset();
             
             File levelFile = new File(level.getLevelLocation());
+
             // FIRST LOAD ALL THE XML INTO A TREE
             Document doc = xmlUtil.loadXMLDocument( levelFile.getAbsolutePath(), 
                                                     levelSchema.getAbsolutePath());
@@ -65,6 +66,19 @@ public class PathXLevelLoader
             level.setLevelName(levelName);
             String bgImageName = attributes.getNamedItem(IMAGE_ATT).getNodeValue();
             level.setBackgroundImageFileName(bgImageName);
+            
+            //STARTING IMG LOC
+            Node startNode = doc.getElementsByTagName(START_NODE).item(0);
+            attributes = startNode.getAttributes();
+            String stImageName = attributes.getNamedItem(IMAGE_ATT).getNodeValue();
+            level.setStartingLocationImageFileName(stImageName);
+            
+            //DEST IMG LOC
+            Node destNode = doc.getElementsByTagName(DEST_NODE).item(0);
+            attributes = destNode.getAttributes();
+            String dtImageName = attributes.getNamedItem(IMAGE_ATT).getNodeValue();
+            level.setDestinationImageFileName(dtImageName);
+            
 
             // THEN LET'S LOAD THE LIST OF ALL THE REGIONS
             loadIntersectionsList(doc, level);

@@ -7,10 +7,10 @@
 <properties>
     <property_list>
         <!-- ALL THE IMAGES TO BE USED IN THE GAME -->
-        <property name ="IMAGE_BUTTON_EXIT"                     value="./path_x/ButtonExit.png"></property>
-        <property name ="IMAGE_BUTTON_EXIT_MOUSE_OVER"          value="./path_x/ButtonExitMouseOver.png"></property>
-        <property name ="IMAGE_BUTTON_HOME"                     value="./path_x/ButtonHome.png"></property>
-        <property name ="IMAGE_BUTTON_HOME_MOUSE_OVER"          value="./path_x/ButtonHomeMouseOver.png"></property>
+        <property name ="IMAGE_BUTTON_EXIT"                     value="./path_x/buttons/ButtonExit.png"></property>
+        <property name ="IMAGE_BUTTON_EXIT_MOUSE_OVER"          value="./path_x/buttons/ButtonExitMouseOver.png"></property>
+        <property name ="IMAGE_BUTTON_HOME"                     value="./path_x/buttons/ButtonHome.png"></property>
+        <property name ="IMAGE_BUTTON_HOME_MOUSE_OVER"          value="./path_x/buttons/ButtonHomeMouseOver.png"></property>
         
         <property name="IMAGE_BACKGROUND_MENU"                  value="./path_x/MainMenuBackground.png"></property>
         <property name="IMAGE_BACKGROUND_LEVEL_SELECT"          value="./path_x/LevelSelectBackground.png"></property>
@@ -18,49 +18,49 @@
         <property name="IMAGE_BACKGROUND_HELP"                  value="./path_x/HelpBackground.png"></property>
         <property name="IMAGE_BACKGROUND_GAME"                  value="./path_x/GameBackground.png"></property>
         
-        <property name="IMAGE_BUTTON_PLAY"                      value="./path_x/ButtonPlay.png"></property>
-        <property name="IMAGE_BUTTON_PLAY_MOUSE_OVER"           value="./path_x/ButtonPlayMouseOver.png"></property>
-        <property name="IMAGE_BUTTON_RESET"                     value="./path_x/ButtonReset.png"></property>
-        <property name="IMAGE_BUTTON_RESET_MOUSE_OVER"          value="./path_x/ButtonResetMouseOver.png"></property>
-        <property name="IMAGE_BUTTON_SETTINGS"                  value="./path_x/ButtonSettings.png"></property>
-        <property name="IMAGE_BUTTON_SETTINGS_MOUSE_OVER"       value="./path_x/ButtonSettingsMouseOver.png"></property>
-        <property name="IMAGE_BUTTON_HELP"                      value="./path_x/ButtonHelp.png"></property>
-        <property name="IMAGE_BUTTON_HELP_MOUSE_OVER"           value="./path_x/ButtonHelpMouseOver.png"></property>
-        
-        <property name="IMAGE_BUTTON_SETTINGS_OPTION"           value="./path_x/ButtonSettingsOption.png"></property>
-        <property name="IMAGE_BUTTON_SETTINGS_OPTION_SELECTED"  value="./path_x/ButtonSettingsOptionSelected.png"></property>
+        <property name="IMAGE_BUTTON_PLAY"                      value="./path_x/buttons/ButtonPlay.png"></property>
+        <property name="IMAGE_BUTTON_PLAY_MOUSE_OVER"           value="./path_x/buttons/ButtonPlayMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_RESET"                     value="./path_x/buttons/ButtonReset.png"></property>
+        <property name="IMAGE_BUTTON_RESET_MOUSE_OVER"          value="./path_x/buttons/ButtonResetMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS"                  value="./path_x/buttons/ButtonSettings.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS_MOUSE_OVER"       value="./path_x/buttons/ButtonSettingsMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_HELP"                      value="./path_x/buttons/ButtonHelp.png"></property>
+        <property name="IMAGE_BUTTON_HELP_MOUSE_OVER"           value="./path_x/buttons/ButtonHelpMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS_OPTION"           value="./path_x/buttons/ButtonSettingsOption.png"></property>
+        <property name="IMAGE_BUTTON_SETTINGS_OPTION_SELECTED"  value="./path_x/buttons/ButtonSettingsOptionSelected.png"></property>
         
         <property name="IMAGE_LEVEL_SELECT_MAP"                 value="./path_x/Map.png"></property>
         
-        <property name="IMAGE_BUTTON_UP_ARROW"                  value="./path_x/ArrowUp.png"></property>
-        <property name="IMAGE_BUTTON_UP_ARROW_MOUSE_OVER"       value="./path_x/ArrowUpMouseOver.png"></property>
-        <property name="IMAGE_BUTTON_RIGHT_ARROW"               value="./path_x/ArrowRight.png"></property>
-        <property name="IMAGE_BUTTON_RIGHT_ARROW_MOUSE_OVER"    value="./path_x/ArrowRightMouseOver.png"></property>
-        <property name="IMAGE_BUTTON_LEFT_ARROW"                value="./path_x/ArrowLeft.png"></property>
-        <property name="IMAGE_BUTTON_LEFT_ARROW_MOUSE_OVER"     value="./path_x/ArrowLeftMouseOver.png"></property>
-        <property name="IMAGE_BUTTON_DOWN_ARROW"                value="./path_x/ArrowDown.png"></property>
-        <property name="IMAGE_BUTTON_DOWN_ARROW_MOUSE_OVER"     value="./path_x/ArrowDownMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_UP_ARROW"                  value="./path_x/buttons/ArrowUp.png"></property>
+        <property name="IMAGE_BUTTON_UP_ARROW_MOUSE_OVER"       value="./path_x/buttons/ArrowUpMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_RIGHT_ARROW"               value="./path_x/buttons/ArrowRight.png"></property>
+        <property name="IMAGE_BUTTON_RIGHT_ARROW_MOUSE_OVER"    value="./path_x/buttons/ArrowRightMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_LEFT_ARROW"                value="./path_x/buttons/ArrowLeft.png"></property>
+        <property name="IMAGE_BUTTON_LEFT_ARROW_MOUSE_OVER"     value="./path_x/buttons/ArrowLeftMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_DOWN_ARROW"                value="./path_x/buttons/ArrowDown.png"></property>
+        <property name="IMAGE_BUTTON_DOWN_ARROW_MOUSE_OVER"     value="./path_x/buttons/ArrowDownMouseOver.png"></property>
         
-        <property name="IMAGE_BUTTON_START"                     value="./path_x/ButtonStart.png"></property>
-        <property name="IMAGE_BUTTON_START_MOUSE_OVER"          value="./path_x/ButtonStartMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_START"                     value="./path_x/buttons/ButtonStart.png"></property>
+        <property name="IMAGE_BUTTON_START_MOUSE_OVER"          value="./path_x/buttons/ButtonStartMouseOver.png"></property>
         
-        <property name="IMAGE_BUTTON_LEVEL_UNLOCKED"            value="./path_x/ButtonLevelUnlocked.png"></property>
-        <property name="IMAGE_BUTTON_LEVEL_LOCKED"              value="./path_x/ButtonLevelLocked.png"></property>
-        <property name="IMAGE_BUTTON_LEVEL_COMPLETED"           value="./path_x/ButtonLevelCompleted.png"></property>
-        <property name="IMAGE_BUTTON_LEVEL_MOUSE_OVER"          value="./path_x/ButtonLevelMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_LEVEL_UNLOCKED"            value="./path_x/buttons/ButtonLevelUnlocked.png"></property>
+        <property name="IMAGE_BUTTON_LEVEL_LOCKED"              value="./path_x/buttons/ButtonLevelLocked.png"></property>
+        <property name="IMAGE_BUTTON_LEVEL_COMPLETED"           value="./path_x/buttons/ButtonLevelCompleted.png"></property>
+        <property name="IMAGE_BUTTON_LEVEL_MOUSE_OVER"          value="./path_x/buttons/ButtonLevelMouseOver.png"></property>
         
         <property name="IMAGE_DIALOG_BOX"                       value="./path_x/DialogInfo.png"></property>
-        <property name="IMAGE_BUTTON_CLOSE"                     value="./path_x/ButtonClose.png"></property>
-        <property name="IMAGE_BUTTON_CLOSE_MOUSE_OVER"          value="./path_x/ButtonCloseMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE"                     value="./path_x/buttons/ButtonClose.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE_MOUSE_OVER"          value="./path_x/buttons/ButtonCloseMouseOver.png"></property>
         
-        <property name="IMAGE_UNLOCKED_INTERSECTION"            value="./path_x/ButtonLevelUnlocked.png"></property>
-        <property name="IMAGE_LOCKED_INTERSECTION"              value="./path_x/ButtonLevelLocked.png"></property>
+        
+        <property name="IMAGE_UNLOCKED_INTERSECTION"            value="./path_x/buttons/ButtonLevelUnlocked.png"></property>
+        <property name="IMAGE_LOCKED_INTERSECTION"              value="./path_x/buttons/ButtonLevelLocked.png"></property>
         
         <property name="IMAGE_WINDOW_ICON"                      value="./path_x/WindowIcon.png"></property>
 
         <!-- LEVELS -->
-        <property name="LEVEL1"                                 value="./level1/Cali.xml"></property>
-        <property name="LEVEL2"                                 value="./level2/Cali2.xml"></property>
+        <property name="LEVEL1"                                 value="./Cali.xml"></property>
+        <property name="LEVEL2"                                 value="./TEST.xml"></property>
 
         <!-- ALL THE TEXT TO BE DISPLAYED -->
         <property name="TEXT_ERROR_LOADING_AUDIO"               value="Error Loading an Audio File"></property>

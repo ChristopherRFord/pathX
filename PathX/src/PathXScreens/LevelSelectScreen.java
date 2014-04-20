@@ -193,17 +193,6 @@ public class LevelSelectScreen extends PathXScreen
                 if (data.getViewport().getViewportY() > MAP_MIN_Y) scroll(0, -VIEWPORT_INC);
             }
         }); 
-
-
-        
-        // KEY LISTENER - LET'S US PROVIDE CUSTOM RESPONSES
-        game.setKeyListener(new KeyAdapter(){
-            @Override
-            public void keyPressed(KeyEvent ke)
-            {   
-                respondToKeyPress(ke.getKeyCode());    
-            }
-        });
     }
     
     private void scroll(int x, int y)
@@ -280,6 +269,15 @@ public class LevelSelectScreen extends PathXScreen
             button.setEnabled(true);
         }
         
+        // KEY LISTENER - LET'S US PROVIDE CUSTOM RESPONSES
+        game.setKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent ke)
+            {   
+                respondToKeyPress(ke.getKeyCode());    
+            }
+        });
+        
         // WE'LL USE AND REUSE THESE FOR LOADING STUFF
         BufferedImage img;
         SpriteType sT;
@@ -287,7 +285,7 @@ public class LevelSelectScreen extends PathXScreen
         
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         String imgPath = props.getProperty(PathXPropertyType.PATH_IMG);
-
+        
         String levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE1).getProperty();
         sT = new SpriteType(LEVEL_BUTTON_TYPE1);
         img = game.loadImage(imgPath + levelButton);
@@ -375,6 +373,11 @@ public class LevelSelectScreen extends PathXScreen
             button.setState(PathXButtonState.INVISIBLE_STATE.toString());
             button.setEnabled(false);
         }
+        
+        // KEY LISTENER - LET'S US PROVIDE CUSTOM RESPONSES
+        game.setKeyListener(new KeyAdapter(){
+            @Override
+            public void keyPressed(KeyEvent ke){}});
     }
     
      /**

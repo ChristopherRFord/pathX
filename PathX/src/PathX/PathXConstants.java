@@ -1,5 +1,6 @@
 package PathX;
 
+import java.awt.Color;
 import java.awt.Font;
 
 /**
@@ -58,6 +59,9 @@ public class PathXConstants
     public static final String SETTINGS_SCREEN_STATE = "SETTINGS_SCREEN_STATE";
     public static final String HELP_SCREEN_STATE = "HELP_SCREEN_STATE";
     
+    public static final String STARTING_LOCATION_TYPE = "STARTING_LOCATION_TYPE";
+    public static final String DESTINATION_LOCATION_TYPE = "DESTINATION_LOCATION_TYPE";
+    
      // CONSTANTS FOR LOADING DATA FROM THE XML FILES
     // THESE ARE THE XML NODES
     public static final String LEVEL_NODE = "level";
@@ -71,6 +75,8 @@ public class PathXConstants
     public static final String POLICE_NODE = "police";
     public static final String BANDITS_NODE = "bandits";
     public static final String ZOMBIES_NODE = "zombies";
+    public static final String START_NODE = "start_intersection";
+    public static final String DEST_NODE = "destination_intersection";
 
     // AND THE ATTRIBUTES FOR THOSE NODES
     public static final String NAME_ATT = "name";
@@ -85,6 +91,19 @@ public class PathXConstants
     public static final String ONE_WAY_ATT = "one_way";
     public static final String AMOUNT_ATT = "amount";
     public static final String NUM_ATT = "num";
+
+    
+    // RENDERING SETTINGS
+    public static final int INTERSECTION_RADIUS = 20;
+    public static final int INT_STROKE = 3;
+    public static final int ONE_WAY_TRIANGLE_HEIGHT = 40;
+    public static final int ONE_WAY_TRIANGLE_WIDTH = 60;
+    
+    // DEFAULT COLORS
+    public static final Color   INT_OUTLINE_COLOR   = Color.BLACK;
+    public static final Color   HIGHLIGHTED_COLOR = Color.YELLOW;
+    public static final Color   OPEN_INT_COLOR      = Color.GREEN;
+    public static final Color   CLOSED_INT_COLOR    = Color.RED;
     
     
     // ANIMATION SPEED
