@@ -30,7 +30,7 @@ import pathX.level_editor.model.Road;
  * 
  * @author  Richard McKenna
  */
-public class PXLE_XMLLevelIO
+public class PXLE_XMLLevelIO implements PXLE_LevelIO
 {
     // THIS WILL HELP US PARSE THE XML FILES
     private XMLUtilities xmlUtil;
@@ -244,6 +244,7 @@ public class PXLE_XMLLevelIO
                 intersectionNodeElement.setAttribute(X_ATT,     "" + i.x);
                 intersectionNodeElement.setAttribute(Y_ATT,     "" + i.y);
                 intersectionNodeElement.setAttribute(OPEN_ATT,  "" + i.open);
+                id++;
              }
 
             // AND NOW ADD ALL THE ROADS

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<level image="Level7-9BG.png" name="Nevada Casino Circuit 1">
+     <intersections>
+          <intersection id="0" open="true" x="546" y="48"/>
+          <intersection id="1" open="true" x="549" y="456"/>
+          <intersection id="2" open="true" x="411" y="165"/>
+          <intersection id="3" open="true" x="546" y="167"/>
+          <intersection id="4" open="true" x="658" y="163"/>
+          <intersection id="5" open="true" x="805" y="160"/>
+          <intersection id="6" open="true" x="284" y="165"/>
+          <intersection id="7" open="true" x="265" y="340"/>
+          <intersection id="8" open="true" x="414" y="336"/>
+          <intersection id="9" open="true" x="547" y="334"/>
+          <intersection id="10" open="false" x="672" y="323"/>
+          <intersection id="11" open="true" x="808" y="322"/>
+          <intersection id="12" open="true" x="470" y="249"/>
+          <intersection id="13" open="true" x="635" y="262"/>
+     </intersections>
+     <roads>
+          <road int_id1="0" int_id2="3" one_way="true" speed_limit="30"/>
+          <road int_id1="3" int_id2="2" one_way="false" speed_limit="30"/>
+          <road int_id1="2" int_id2="6" one_way="false" speed_limit="100"/>
+          <road int_id1="3" int_id2="4" one_way="false" speed_limit="30"/>
+          <road int_id1="4" int_id2="5" one_way="false" speed_limit="30"/>
+          <road int_id1="12" int_id2="7" one_way="false" speed_limit="100"/>
+          <road int_id1="13" int_id2="12" one_way="false" speed_limit="10"/>
+          <road int_id1="6" int_id2="12" one_way="false" speed_limit="100"/>
+          <road int_id1="2" int_id2="13" one_way="false" speed_limit="10"/>
+          <road int_id1="3" int_id2="13" one_way="true" speed_limit="10"/>
+          <road int_id1="5" int_id2="11" one_way="false" speed_limit="30"/>
+          <road int_id1="4" int_id2="13" one_way="false" speed_limit="10"/>
+          <road int_id1="7" int_id2="8" one_way="false" speed_limit="100"/>
+          <road int_id1="8" int_id2="9" one_way="false" speed_limit="100"/>
+          <road int_id1="9" int_id2="10" one_way="false" speed_limit="30"/>
+          <road int_id1="10" int_id2="11" one_way="false" speed_limit="30"/>
+          <road int_id1="9" int_id2="1" one_way="true" speed_limit="30"/>
+     </roads>
+     <start_intersection id="0" image="Level7Start.png"/>
+     <destination_intersection id="1" image="Finish.png"/>
+     <money amount="140"/>
+     <police num="2"/>
+     <bandits num="1"/>
+     <zombies num="0"/>
+</level>

@@ -36,9 +36,12 @@ public class GameLevel
     Sprite backgroundImage;
     Intersection destination;
     String destinationImageFileName;
+    
+    Intersection playerLocation;
 
     // THE AMOUNT OF MONEY TO BE EARNED BY THE LEVEL
-    int money;
+    public int money;
+    public int recievedMoney;
 
     // THE NUMBER OF POLICE, BANDITS, AND ZOMBIES
     int numPolice;
@@ -46,13 +49,18 @@ public class GameLevel
     int numZombies;
     
     private String state;
+    public String type;
+    public int ID;
     
-    public GameLevel(String name, int amount, String state, String loc)
+    public GameLevel(String name, int amount, String type, String state, String loc, int ID)
     {
         levelName = name;
         money = amount;
+        this.type = type;
+        recievedMoney = amount;
         this.state = state;
         levelLocation = loc;
+        this.ID = ID;
         
         // INIT THE GRAPH DATA STRUCTURES
         intersections = new ArrayList();
@@ -68,7 +76,12 @@ public class GameLevel
     public String                   getDestinationImageFileName()       {   return destinationImageFileName;        }
     public ArrayList<Intersection>  getIntersections()                  {   return intersections;                   }
     public ArrayList<Road>          getRoads()                          {   return roads;                           }
-    public Intersection             getStartingLocation()               {   return startingLocation;                }
+    public Intersection             getStartingLocation()
+    {
+        playerLocation = startingLocation;
+        return startingLocation;
+    }
+    public Intersection             getPlayerLocation()                 {   return playerLocation;                  }
     public Intersection             getDestination()                    {   return destination;                     }
     public int                      getMoney()                          {   return money;                           }
     public int                      getNumPolice()                      {   return numPolice;                       }
@@ -87,7 +100,10 @@ public class GameLevel
     public void setDestinationImageFileName(String destinationImageFileName)    
     {   this.destinationImageFileName = destinationImageFileName;               }
     public void setMoney(int money)    
-    {   this.money = money;                                                     }
+    {   
+        this.money = money; 
+        recievedMoney = money;
+    }
     public void setNumPolice(int numPolice)    
     {   this.numPolice = numPolice;                                             }
     public void setNumZombies(int numZombies)
@@ -111,6 +127,7 @@ public class GameLevel
         destination = null;
         destinationImageFileName = "";
         money = 0;
+        recievedMoney = 0;
         numPolice = 0;
         numBandits = 0;
         numZombies = 0;

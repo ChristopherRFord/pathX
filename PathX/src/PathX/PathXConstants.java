@@ -14,7 +14,8 @@ public class PathXConstants
     // LOADING SETTINGS FROM OUR XML FILES
     public static String PROPERTY_TYPES_LIST = "property_types.txt";
     public static String PROPERTIES_FILE_NAME = "properties.xml";
-    public static String PROPERTIES_SCHEMA_FILE_NAME = "properties_schema.xsd";    
+    public static String PROPERTIES_SCHEMA_FILE_NAME = "properties_schema.xsd";
+    public static String PATH_IMG = "./img/path_x/";
     public static String PATH_DATA = "./data/";
     public static String PATH_LEVELS = "./levels/";
     public static String LEVEL_SCHEMA_FILE_NAME = "PathXLevelSchema.xsd";
@@ -41,15 +42,41 @@ public class PathXConstants
     public static final String RIGHT_ARROW_BUTTON_TYPE = "RIGHT_ARROW_BUTTON_TYPE";
     public static final String LEFT_ARROW_BUTTON_TYPE = "LEFT_ARROW_BUTTON_TYPE";
     public static final String DOWN_ARROW_BUTTON_TYPE = "DOWN_ARROW_BUTTON_TYPE";
+    public static final String PAUSE_BUTTON_TYPE = "PAUSE_BUTTON_TYPE";
     
     //LEVEL SCREEN BUTTONS
     public static final String LEVEL_BUTTON_TYPE1 = "LEVEL_BUTTON_TYPE1";
     public static final String LEVEL_BUTTON_TYPE2 = "LEVEL_BUTTON_TYPE2";
     public static final String LEVEL_BUTTON_TYPE3 = "LEVEL_BUTTON_TYPE3";
     
+    public static final String LEVEL_BUTTON_TYPE4 = "LEVEL_BUTTON_TYPE4";
+    public static final String LEVEL_BUTTON_TYPE5 = "LEVEL_BUTTON_TYPE5";
+    public static final String LEVEL_BUTTON_TYPE6 = "LEVEL_BUTTON_TYPE6";
+    
+    public static final String LEVEL_BUTTON_TYPE7 = "LEVEL_BUTTON_TYPE7";
+    public static final String LEVEL_BUTTON_TYPE8 = "LEVEL_BUTTON_TYPE8";
+    public static final String LEVEL_BUTTON_TYPE9 = "LEVEL_BUTTON_TYPE9";
+    
+    public static final String LEVEL_BUTTON_TYPE10 = "LEVEL_BUTTON_TYPE10";
+    public static final String LEVEL_BUTTON_TYPE11 = "LEVEL_BUTTON_TYPE11";
+    public static final String LEVEL_BUTTON_TYPE12 = "LEVEL_BUTTON_TYPE12";
+    
+    public static final String LEVEL_BUTTON_TYPE13 = "LEVEL_BUTTON_TYPE13";
+    public static final String LEVEL_BUTTON_TYPE14 = "LEVEL_BUTTON_TYPE14";
+    public static final String LEVEL_BUTTON_TYPE15 = "LEVEL_BUTTON_TYPE15";
+    
+    public static final String LEVEL_BUTTON_TYPE16 = "LEVEL_BUTTON_TYPE16";
+    public static final String LEVEL_BUTTON_TYPE17 = "LEVEL_BUTTON_TYPE17";
+    public static final String LEVEL_BUTTON_TYPE18 = "LEVEL_BUTTON_TYPE18";
+    
+    public static final String LEVEL_BUTTON_TYPE19 = "LEVEL_BUTTON_TYPE19";
+    public static final String LEVEL_BUTTON_TYPE20 = "LEVEL_BUTTON_TYPE20";
+    public static final String LEVEL_BUTTON_TYPE21 = "LEVEL_BUTTON_TYPE21";
+    
     //GAME SCREEN BUTTONS
     public static final String DIALOG_BOX_TYPE = "DIALOG_BOX_TYPE";
     public static final String CLOSE_BUTTON_TYPE = "CLOSE_BUTTON_TYPE";
+    public static final String RETRY_BUTTON_TYPE = "RETRY_LEVEL_TYPE";
     public static final String START_BUTTON_TYPE = "START_BUTTON_TYPE";
     
     // WE'LL USE THESE STATES TO CONTROL SWITCHING BETWEEN THE TWO
@@ -61,6 +88,29 @@ public class PathXConstants
     
     public static final String STARTING_LOCATION_TYPE = "STARTING_LOCATION_TYPE";
     public static final String DESTINATION_LOCATION_TYPE = "DESTINATION_LOCATION_TYPE";
+    
+    public static final String PLAYER_TYPE = "PLAYER_TYPE";
+    
+    
+    public static final String POLICE_TYPE = "POLICE_TYPE";
+    public static final String POLICE_STATE = "POLICE_STATE";
+    public static final String POLICE_SELECTED_STATE = "POLICE_SELECTED_STATE";
+    public static final String POLICE_MINDLESS_STATE = "POLICE_MINDLESS_STATE";
+    
+    public static final String BANDIT_TYPE = "BANDIT_TYPE";
+    public static final String BANDIT_STATE = "BANDIT_STATE";
+    public static final String BANDIT_SELECTED_STATE = "BANDIT_SELECTED_STATE";
+    public static final String BANDIT_MINDLESS_STATE = "BANDIT_MINDLESS_STATE";
+    
+    public static final String ZOMBIE_TYPE = "ZOMBIE_TYPE";
+    public static final String ZOMBIE_STATE = "ZOMBIE_STATE";
+    public static final String ZOMBIE_SELECTED_STATE = "ZOMBIE_SELECTED_STATE";
+    public static final String ZOMBIE_MINDLESS_STATE = "ZOMBIE_MINDLESS_STATE";
+    
+    public static final String INTERSECTION_TYPE = "INTERSECTION_TYPE";
+    public static final String GREEN_LIGHT_STATE = "GREEN_LIGHT_STATE";
+    public static final String RED_LIGHT_STATE = "RED_LIGHT_STATE";
+    public static final String CLOSED_LIGHT_STATE = "CLOSED_LIGHT_STATE";
     
      // CONSTANTS FOR LOADING DATA FROM THE XML FILES
     // THESE ARE THE XML NODES
@@ -105,6 +155,24 @@ public class PathXConstants
     public static final Color   OPEN_INT_COLOR      = Color.GREEN;
     public static final Color   CLOSED_INT_COLOR    = Color.RED;
     
+    public static final String MAKE_LIGHT_GREEN = "MAKE_LIGHT_GREEN";
+    public static final String MAKE_LIGHT_RED = "MAKE_LIGHT_RED";
+    
+    public static final String DECREASE_SPEED_LIMIT = "DECREASE_SPEED_LIMIT";
+    public static final String INCREASE_SPEED_LIMIT = "INCREASE_SPEED_LIMIT";
+    
+    public static final String FLAT_TIRE = "FLAT_TIRE";
+    public static final String EMPTY_GAS_TANK = "EMPTY_GAS_TANK";
+    
+    public static final String CLOSE_ROAD = "CLOSE_ROAD";
+    public static final String OPEN_INTERSECTION = "OPEN_INTERSECTION";
+    public static final String CLOSE_INTERSECTION = "CLOSE_INTERSECTION";
+    
+    public static final String MIND_CONTROL = "MIND_CONTROL";
+    public static final String MINDLESS_TERROR = "MINDLESS_TERROR";
+    public static final String PLAYER_STATE = "PLAYER_STATE";
+    public static final String PLAYER_STEAL_STATE = "PLAYER_STEAL_STATE";
+    public static final String PLAYER_INTANGIBILITY_STATE = "PLAYER_INANGIBILITY_STATE";
     
     // ANIMATION SPEED
     public static final int FPS = 30;

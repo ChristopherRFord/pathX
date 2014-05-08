@@ -278,91 +278,14 @@ public class LevelSelectScreen extends PathXScreen
             }
         });
         
-        // WE'LL USE AND REUSE THESE FOR LOADING STUFF
-        BufferedImage img;
-        SpriteType sT;
-        Sprite s;
-        
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
-        String imgPath = props.getProperty(PathXPropertyType.PATH_IMG);
-        
-        String levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE1).getProperty();
-        sT = new SpriteType(LEVEL_BUTTON_TYPE1);
-        img = game.loadImage(imgPath + levelButton);
-        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
-        String levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
-        img = game.loadImage(imgPath + levelButtonMouseOver);
-        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
-        s = new Sprite(sT, 5, 150, 0, 0, PathXButtonState.VISIBLE_STATE.toString());
-        buttons.put(LEVEL_BUTTON_TYPE1, s);
-        
-        buttons.get(LEVEL_BUTTON_TYPE1).setActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent ae)
-            {
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE1).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
-                {
-                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE1));
-                    game.enter(game.GameScreen);
-                }
-            }
-        });
-        
-        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE2).getProperty();
-        sT = new SpriteType(LEVEL_BUTTON_TYPE2);
-        img = game.loadImage(imgPath + levelButton);
-        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
-        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
-        img = game.loadImage(imgPath + levelButtonMouseOver);
-        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
-        s = new Sprite(sT, 50, 265, 0, 0, PathXButtonState.VISIBLE_STATE.toString());
-        buttons.put(LEVEL_BUTTON_TYPE2, s);
-        
-        buttons.get(LEVEL_BUTTON_TYPE2).setActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent ae)
-            {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE2).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
-                {
-                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE2));
-                    game.enter(game.GameScreen);
-                }
-            }
-        }); 
-        /*
-        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE3).getProperty();
-        sT = new SpriteType(LEVEL_BUTTON_TYPE3);
-        img = game.loadImage(imgPath + levelButton);
-        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
-        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
-        img = game.loadImage(imgPath + levelButtonMouseOver);
-        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
-        s = new Sprite(sT, 100, 320, 0, 0, PathXButtonState.VISIBLE_STATE.toString());
-        buttons.put(LEVEL_BUTTON_TYPE3, s);
-        
-        buttons.get(LEVEL_BUTTON_TYPE3).setActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent ae)
-            {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE3).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
-                {
-                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE3));
-                    game.enter(game.GameScreen);
-                }
-            }
-        }); 
-        */
+        loadLevels();
     }
 
     @Override
     public void leave()
     {
         game.setGUIButtons(null);
-
-        
-        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE1).getSpriteType().getSpriteTypeID().toString());
-        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE2).getSpriteType().getSpriteTypeID().toString());
-//        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE3).getSpriteType().getSpriteTypeID().toString());
+                
         
         Iterator<Sprite> buttonsIt = buttons.values().iterator();
          
@@ -378,6 +301,507 @@ public class LevelSelectScreen extends PathXScreen
         game.setKeyListener(new KeyAdapter(){
             @Override
             public void keyPressed(KeyEvent ke){}});
+        
+        unloadLevels();
+    }
+    
+    public void loadLevels()
+    {
+                // WE'LL USE AND REUSE THESE FOR LOADING STUFF
+        BufferedImage img;
+        SpriteType sT;
+        Sprite s;
+        
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        String imgPath = props.getProperty(PathXPropertyType.PATH_IMG);
+        
+        String levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE1).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE1);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        String levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 140 + data.getViewport().getViewportX(), 340 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE1, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE1).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE1).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE1));
+                    game.enter(game.GameScreen);
+                }
+            }
+        });
+       
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE2).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE2);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 90 + data.getViewport().getViewportX(), 310 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE2, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE2).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE2).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE2));
+                    game.enter(game.GameScreen);
+                }
+            }
+        }); 
+
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE3).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE3);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 50 + data.getViewport().getViewportX(), 265 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE3, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE3).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE3).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE3));
+                    game.enter(game.GameScreen);
+                }
+            }
+        }); 
+        
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE4).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE4);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 0 + data.getViewport().getViewportX(), 200 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE4, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE4).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE4).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE4));
+                    game.enter(game.GameScreen);
+                }
+            }
+        }); 
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE5).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE5);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 40 + data.getViewport().getViewportX(), 180 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE5, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE5).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE5).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE5));
+                    game.enter(game.GameScreen);
+                }
+            }
+        });
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE6).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE6);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 0 + data.getViewport().getViewportX(), 150 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE6, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE6).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE6).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE6));
+                    game.enter(game.GameScreen);
+                }
+            }
+        });
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE7).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE7);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 150 + data.getViewport().getViewportX(), 200 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE7, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE7).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE7).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE7));
+                    game.enter(game.GameScreen);
+                }
+            }
+        });
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE8).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE8);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 150 + data.getViewport().getViewportX(), 150 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE8, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE8).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE8).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE8));
+                    game.enter(game.GameScreen);
+                }
+            }
+        });  
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE9).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE9);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 150 + data.getViewport().getViewportX(), 100 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE9, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE9).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE9).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE9));
+                    game.enter(game.GameScreen);
+                }
+            }
+        });  
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE10).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE10);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 250 + data.getViewport().getViewportX(), 200 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE10, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE10).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE10).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE10));
+                    game.enter(game.GameScreen);
+                }
+            }
+        });  
+       
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE11).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE11);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 250  + data.getViewport().getViewportX(), 150 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE11, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE11).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE11).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE11));
+                    game.enter(game.GameScreen);
+                }
+            }
+        });  
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE12).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE12);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 250 + data.getViewport().getViewportX(), 100 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE12, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE12).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE12).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE12));
+                    game.enter(game.GameScreen);
+                }
+            }
+        });  
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE13).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE13);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 1100 + data.getViewport().getViewportX(), 600 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE13, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE13).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE13).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE13));
+                    game.enter(game.GameScreen);
+                }
+            }
+        });  
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE14).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE14);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 1050 + data.getViewport().getViewportX(), 550 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE14, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE14).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE14).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE14));
+                    game.enter(game.GameScreen);
+                }
+            }
+        });  
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE15).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE15);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 1050, 500, 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE15, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE15).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE15).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE15));
+                    game.enter(game.GameScreen);
+                }
+            }
+        });  
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE16).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE16);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 1050 + data.getViewport().getViewportX(), 300 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE16, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE16).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE16).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE16));
+                    game.enter(game.GameScreen);
+                }
+            }
+        }); 
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE17).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE17);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 1110 + data.getViewport().getViewportX(), 150 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE17, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE17).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE17).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE17));
+                    game.enter(game.GameScreen);
+                }
+            }
+        }); 
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE18).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE18);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 950 + data.getViewport().getViewportX(), 250 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE18, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE18).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE18).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE18));
+                    game.enter(game.GameScreen);
+                }
+            }
+        }); 
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE19).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE19);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 1150 + data.getViewport().getViewportX(), 100 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE19, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE19).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE19).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE19));
+                    game.enter(game.GameScreen);
+                }
+            }
+        }); 
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE20).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE20);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 1180 + data.getViewport().getViewportX(), 90 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE20, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE20).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE20).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE20));
+                    game.enter(game.GameScreen);
+                }
+            }
+        }); 
+        
+        levelButton = data.getLevels().get(LEVEL_BUTTON_TYPE21).getProperty();
+        sT = new SpriteType(LEVEL_BUTTON_TYPE21);
+        img = game.loadImage(imgPath + levelButton);
+        sT.addState(PathXButtonState.VISIBLE_STATE.toString(), img);
+        levelButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_LEVEL_MOUSE_OVER);
+        img = game.loadImage(imgPath + levelButtonMouseOver);
+        sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
+        s = new Sprite(sT, 1210 + data.getViewport().getViewportX(), 80 + data.getViewport().getViewportY(), 0, 0, PathXButtonState.VISIBLE_STATE.toString());
+        buttons.put(LEVEL_BUTTON_TYPE21, s);
+        
+        buttons.get(LEVEL_BUTTON_TYPE21).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {    
+                if (data.getLevels().get(LEVEL_BUTTON_TYPE21).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                {
+                    game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE21));
+                    game.enter(game.GameScreen);
+                }
+            }
+        }); 
+    }
+    
+    public void unloadLevels()
+    {
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE1).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE2).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE3).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE4).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE5).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE6).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE7).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE8).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE9).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE10).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE11).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE12).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE13).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE14).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE15).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE16).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE17).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE18).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE19).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE20).getSpriteType().getSpriteTypeID().toString());
+        buttons.remove(buttons.get(LEVEL_BUTTON_TYPE21).getSpriteType().getSpriteTypeID().toString());
     }
     
      /**
@@ -401,6 +825,16 @@ public class LevelSelectScreen extends PathXScreen
         else if (keyCode == KeyEvent.VK_LEFT)
         {
                 if (data.getViewport().getViewportX() < MAP_MAX_X) scroll(VIEWPORT_INC, 0);
+        }
+        
+        else if (keyCode == KeyEvent.VK_2)
+        {
+            data.updateLevels(this);
+        }
+        
+        else if (keyCode == KeyEvent.VK_1)
+        {
+            data.updateMoney(100);
         }
     }
     

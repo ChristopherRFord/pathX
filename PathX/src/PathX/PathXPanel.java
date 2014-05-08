@@ -1,9 +1,13 @@
 package PathX;
 
+import PathX.PathX.PathXSpriteState;
 import static PathX.PathXConstants.*;
 import PathXData.GameLevel;
 import PathXData.PathXDataModel;
 import PathXGraph.Intersection;
+import PathXGraph.PathXBandit;
+import PathXGraph.PathXPolice;
+import PathXGraph.PathXZombie;
 import PathXGraph.Road;
 import PathXScreens.GameScreen;
 import PathXScreens.LevelSelectScreen;
@@ -12,7 +16,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
@@ -23,7 +26,6 @@ import java.util.Iterator;
 import javax.swing.JPanel;
 import mini_game.Sprite;
 import mini_game.SpriteType;
-import mini_game.Viewport;
 
 /**
  * Panel that renders everything for the pathX game
@@ -105,7 +107,9 @@ public class PathXPanel extends JPanel
                 renderLevelBackground((Graphics2D) g);
                 renderRoads((Graphics2D) g);
                 renderIntersections((Graphics2D) g);
+                renderSprites((Graphics2D) g);
             }
+          
             
             //Renders the background
             renderBackground(g);
@@ -158,6 +162,20 @@ public class PathXPanel extends JPanel
         // THERE IS ONLY ONE CURRENTLY SET
         Sprite bg = game.getCurrentScreen().getDecors().get(BACKGROUND_TYPE);
         renderSprite(g, bg);
+        
+        if (game.getCurrentScreen() != game.GameScreen) return;
+        
+                
+         g.setFont(FONT_STATS);
+         g.setColor(Color.black);
+         String speed = game.GameScreen.getPlayer().playerSpeed + "";
+         g.drawString(speed, 100, 400);
+         String balance = game.GameScreen.getLevel().recievedMoney + "";
+         g.drawString(balance, 100, 370);
+         balance = data.getBalance() + "";
+         g.drawString(balance, 100, 340);
+         String currentPowerUp = game.GameScreen.currentPowerUp;
+         g.drawString(currentPowerUp, 5, 310);
     }
 
     /**
@@ -178,6 +196,19 @@ public class PathXPanel extends JPanel
             for (Sprite s : buttonSprites)
             {
                 if (!s.getSpriteType().getSpriteTypeID().contains("LEVEL_BUTTON_TYPE"))
+                {
+                    renderSprite(g, s);
+                }
+            }
+        }
+        else if (game.getCurrentScreen().getScreentype().equals(GAME_SCREEN_STATE))
+        {
+             for (Sprite s : buttonSprites)
+             {
+                if (!s.getSpriteType().getSpriteTypeID().contains("INTERSECTION_TYPE")
+                        && !s.getSpriteType().getSpriteTypeID().equals(POLICE_TYPE)
+                        && !s.getSpriteType().getSpriteTypeID().equals(BANDIT_TYPE)
+                        && !s.getSpriteType().getSpriteTypeID().equals(ZOMBIE_TYPE))
                 {
                     renderSprite(g, s);
                 }
@@ -211,7 +242,7 @@ public class PathXPanel extends JPanel
            
            if (level != null)
            {
-               g.drawString(level.getName() + "-$" + level.getamount(), 400, 450);
+               g.drawString(level.getName() + "-$" + level.getamount(), 100, 450);
            }
     }
     
@@ -223,16 +254,44 @@ public class PathXPanel extends JPanel
      */
     public void renderDialogBox(Graphics g)
     {
-        if (game.getCurrentScreen().getDecors().get(DIALOG_BOX_TYPE) != null)
+        if (game.GameScreen.getDecors().get(DIALOG_BOX_TYPE).getState().equals(PathXSpriteState.VISIBLE_STATE.toString()))
         {
-            Sprite s = game.getCurrentScreen().getDecors().get(DIALOG_BOX_TYPE);
+            Sprite s = game.GameScreen.getDecors().get(DIALOG_BOX_TYPE);
             renderSprite(g, s);
             g.setFont(FONT_STATS);
             g.setColor(Color.BLACK);
             String name = ((GameScreen) game.getCurrentScreen()).getLevel().getName();
             g.drawString(name, 120, 100);
-            s = game.getCurrentScreen().getButtons().get(CLOSE_BUTTON_TYPE);
+            s = game.GameScreen.getButtons().get(CLOSE_BUTTON_TYPE);
             renderSprite(g, s);
+            
+            if (game.GameScreen.loss)
+            {
+                s = game.GameScreen.getButtons().get(RETRY_BUTTON_TYPE);
+                renderSprite(g,s);
+                
+                g.setFont(FONT_STATS);
+                g.setColor(Color.red);
+                String message = "You got caught!";
+                g.drawString(message, 120, 130);
+                message = "You lost " + game.GameScreen.moneyLost + " dollars!";
+                g.drawString(message, 120, 160);
+                message = "Try again!";
+                g.drawString(message, 120, 190);
+            }
+            else if (game.GameScreen.won)
+            {
+                g.setFont(FONT_STATS);
+                g.setColor(Color.BLUE);
+                String message = "You got away!";
+                g.drawString(message, 120, 130);
+                message = "You gained " + game.GameScreen.getLevel().recievedMoney + " dollars!";
+                g.drawString(message, 120, 160);
+                message = "Continue to the next level!";
+                g.drawString(message, 120, 190);
+            }
+            
+
         }
     }
     
@@ -265,10 +324,14 @@ public class PathXPanel extends JPanel
         Iterator<Road> it = ((GameScreen) game.getCurrentScreen()).getLevel().getRoads().iterator();
         
         g2.setStroke(recyclableStrokes.get(INT_STROKE));
+
         while (it.hasNext())
         {
             Road road = it.next();
-            renderRoad(g2, road, INT_OUTLINE_COLOR);
+            if (!road.closed)
+                renderRoad(g2, road, INT_OUTLINE_COLOR);
+            else
+                renderRoad(g2, road, Color.red);
         }
     }
     
@@ -341,35 +404,24 @@ public class PathXPanel extends JPanel
     // HELPER METHOD FOR RENDERING AN INTERSECTION
     private void renderIntersections(Graphics2D g2)
     {
-        Iterator<Intersection> it = ((GameScreen) game.getCurrentScreen()).getLevel().getIntersections().iterator();
-        while (it.hasNext())
+        Iterator<Sprite> sIt = ((GameScreen) game.getCurrentScreen()).getIntersections().iterator();
+        
+        while (sIt.hasNext())
         {
-            Intersection intersection = it.next();
-          
-                // FIRST FILL
-                if (intersection.isOpen())
-                {
-                    g2.setColor(OPEN_INT_COLOR);
-                } else
-                {
-                    g2.setColor(CLOSED_INT_COLOR);
-                }
-                recyclableCircle.x = intersection.x - data.getViewport().getViewportX() - INTERSECTION_RADIUS;
-                recyclableCircle.y = intersection.y - data.getViewport().getViewportY() - INTERSECTION_RADIUS;
-                g2.fill(recyclableCircle);
-
-                Stroke s = recyclableStrokes.get(INT_STROKE);
-                g2.setStroke(s);
-                g2.draw(recyclableCircle);
+            Sprite s = sIt.next();
+            renderSprite(g2, s);
         }
+        
+        // AND NOW RENDER THE START AND DESTINATION LOCATIONS
         
         Image startImage = ((GameScreen) game.getCurrentScreen()).getStartingLocationImage();
         Intersection startInt = ((GameScreen) game.getCurrentScreen()).getLevel().getStartingLocation();
         renderIntersectionImage(g2, startImage, startInt);
-        
+
         Image destImage = ((GameScreen) game.getCurrentScreen()).getDestinationLocationImage();
         Intersection destInt = ((GameScreen) game.getCurrentScreen()).getLevel().getDestination();
         renderIntersectionImage(g2, destImage, destInt);
+                
     }
     
     // HELPER METHOD FOR RENDERING AN IMAGE AT AN INTERSECTION, WHICH IS
@@ -381,9 +433,34 @@ public class PathXPanel extends JPanel
         int h = img.getHeight(null);
         int x1 = i.x-(w/2);
         int y1 = i.y-(h/2);
-        int x2 = x1 + img.getWidth(null);
-        int y2 = y1 + img.getHeight(null);
         
         g2.drawImage(img, x1 - data.getViewport().getViewportX(), y1 - data.getViewport().getViewportY(), null);     
+    }
+
+    private void renderSprites(Graphics2D g2)
+    {
+        Sprite s = ((GameScreen) game.getCurrentScreen()).getPlayerSprite();
+        renderSprite(g2, s);
+        
+        Iterator<PathXPolice> pxpIt = ((GameScreen) game.getCurrentScreen()).getPolice().iterator();
+        while (pxpIt.hasNext())
+        {
+            s = pxpIt.next().getSprite();
+            renderSprite(g2, s);
+        }
+        
+        Iterator<PathXBandit> pxbIt = ((GameScreen) game.getCurrentScreen()).getBandits().iterator();
+        while (pxbIt.hasNext())
+        {
+            s = pxbIt.next().getSprite();
+            renderSprite(g2, s);
+        }
+        
+        Iterator<PathXZombie> pxzIt = ((GameScreen) game.getCurrentScreen()).getZombies().iterator();
+        while (pxzIt.hasNext())
+        {
+            s = pxzIt.next().getSprite();
+            renderSprite(g2, s);
+        }
     }
 }

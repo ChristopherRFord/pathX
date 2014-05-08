@@ -241,7 +241,7 @@ public class PXLE_Canvas extends JPanel
         int y2 = y1 + img.getHeight(null);
         
         // ONLY RENDER IF INSIDE THE VIEWPORT
-        if (viewport.isRectInsideViewport(x1, y1, x2, y2));
+        if (viewport.isRectInsideViewport(x1, y1, x2, y2))
         {
             g2.drawImage(img, x1 - viewport.x, y1 - viewport.y, null);
         }        

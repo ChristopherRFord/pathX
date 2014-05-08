@@ -53,7 +53,8 @@ public abstract class PathXScreen
         {
             Sprite button = buttonsIt.next();
             
-         
+         try
+         {
                 // ARE WE ENTERING A BUTTON?
                 if (button.getState().equals(PathXButtonState.VISIBLE_STATE.toString()))
                 {
@@ -74,6 +75,10 @@ public abstract class PathXScreen
                     }
                 }
             }    
+        catch (NullPointerException e)
+                {System.out.println("a");}
+         
+        }
     }
 
     

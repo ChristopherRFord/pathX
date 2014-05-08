@@ -23,9 +23,7 @@ import properties_manager.PropertiesManager;
  * @author Chris
  */
 public class HelpScreen extends PathXScreen
-{
-
-   
+{  
     public HelpScreen(PathXGame game)
     {
         super(game);

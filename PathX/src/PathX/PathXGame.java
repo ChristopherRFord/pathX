@@ -33,7 +33,6 @@ public class PathXGame extends MiniGame
     public SettingsScreen SettingsScreen;
     public HelpScreen HelpScreen;
     
-    
     /**
      * Default Constructor
      * 
@@ -158,8 +157,8 @@ public class PathXGame extends MiniGame
     {
          if (currentScreen != null) currentScreen.leave();
 
-        enterScreen.enter();
         currentScreen = enterScreen;
+        enterScreen.enter();
     }
     
 
@@ -169,4 +168,5 @@ public class PathXGame extends MiniGame
     
     @Override
     public void initAudioContent(){}
+    
 }

@@ -78,10 +78,14 @@ public class PXLE_Constants
     public static final String PROMPT_TO_SAVE_TEXT                  = "Would you like to save your Level?";
     public static final String PROMPT_TO_SAVE_TITLE_TEXT            = "Save your Level?";
     
+    public static final String PROMPT_TO_SELECT_FORMAT  = "Select your Level Format";
+    public static final String TITLE_SELECT_FORMAT = "Select Level Format";
+    
     // WE'LL NEED THESE TO DYNAMICALLY BUILD TEXT
     public static final String TITLE                        = "pathX Level Editor";
     public static final String EMPTY_TEXT                   = "";
-    public static final String LEVEL_FILE_EXTENSION         = ".xml";
+    public static final String XML_LEVEL_FILE_EXTENSION         = ".xml";
+    public static final String BIN_LEVEL_FILE_EXTENSION         = ".bin";
     public static final String APP_NAME                     = "PathX Level Editor";
     public static final String APP_NAME_FILE_NAME_SEPARATOR = " - ";
     public static final String PNG_FORMAT_NAME              = "png";

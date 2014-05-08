@@ -17,7 +17,9 @@ import pathX.level_editor.view.PXLE_View;
 public class PXLE_Files
 {
     // THIS DOEST THE ACTUAL FILE I/O
-    PXLE_XMLLevelIO levelIO;
+    PXLE_LevelIO levelIO;
+    String levelFileExtension;
+    FileFilter fileFilter;
 
     // THE VIEW AND DATA TO BE UPDATED DURING LOADING
     PXLE_View view;
@@ -35,10 +37,20 @@ public class PXLE_Files
      * This default constructor starts the program without a level file being
      * edited.
      */
-    public PXLE_Files(PXLE_View initView, PXLE_Model initModel)
+    public PXLE_Files(PXLE_View initView, PXLE_Model initModel, String levelFileFormat)
     {
         // INIT THE FILE I/O COMPONENT
-        levelIO = new PXLE_XMLLevelIO(new File(LEVELS_PATH + LEVEL_SCHEMA));
+        levelFileExtension = levelFileFormat;
+        if (levelFileFormat.equals(XML_LEVEL_FILE_EXTENSION))
+        {
+            levelIO = new PXLE_XMLLevelIO(new File(LEVELS_PATH + LEVEL_SCHEMA));
+            fileFilter = new XMLFilter();
+        }                    
+        else
+        {
+            levelIO = new PXLE_BinLevelIO();
+            fileFilter = new BINFilter();
+        }
 
         // KEEP THESE REFERENCE FOR LATER
         view = initView;
@@ -182,7 +194,7 @@ public class PXLE_Files
             // WE ARE STILL IN DANGER OF AN ERROR DURING THE WRITING
             // OF THE INITIAL FILE, SO WE'LL NOT FINALIZE ANYTHING
             // UNTIL WE KNOW WE CAN WRITE TO THE FILE
-            String fileNameToTry = levelName + LEVEL_FILE_EXTENSION;
+            String fileNameToTry = levelName + levelFileExtension;
             File fileToTry = new File(LEVELS_PATH + fileNameToTry);
             if (fileToTry.isDirectory())
             {
@@ -296,7 +308,7 @@ public class PXLE_Files
     {
         // ASK THE USER FOR THE LEVEL TO OPEN
         JFileChooser levelFileChooser = new JFileChooser(LEVELS_PATH);
-        levelFileChooser.setFileFilter(new XMLFilter());
+        levelFileChooser.setFileFilter(fileFilter);
         int buttonPressed = levelFileChooser.showOpenDialog(view);
 
         // ONLY OPEN A NEW FILE IF THE USER SAYS OK
@@ -419,4 +431,29 @@ public class PXLE_Files
             return "Select XML Level File";
         }       
     }
+    
+    /**
+     * This helper class is so that the user only selects
+     * bin files.
+     */
+    class BINFilter extends FileFilter
+    {
+        @Override
+        public boolean accept(File f)
+        {
+            String fileName = f.getName().toLowerCase();
+            if (fileName.endsWith(".bin"))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        @Override
+        public String getDescription()
+        {
+            return "Select BIN Level File";
+        }       
+    }    
 }

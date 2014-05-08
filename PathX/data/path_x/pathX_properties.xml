@@ -39,6 +39,8 @@
         <property name="IMAGE_BUTTON_LEFT_ARROW_MOUSE_OVER"     value="./path_x/buttons/ArrowLeftMouseOver.png"></property>
         <property name="IMAGE_BUTTON_DOWN_ARROW"                value="./path_x/buttons/ArrowDown.png"></property>
         <property name="IMAGE_BUTTON_DOWN_ARROW_MOUSE_OVER"     value="./path_x/buttons/ArrowDownMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_PAUSE"                     value="./path_x/buttons/ButtonPause.png"></property>
+        <property name="IMAGE_BUTTON_PAUSE_MOUSE_OVER"          value="./path_x/buttons/ButtonPauseMouseOver.png"></property>
         
         <property name="IMAGE_BUTTON_START"                     value="./path_x/buttons/ButtonStart.png"></property>
         <property name="IMAGE_BUTTON_START_MOUSE_OVER"          value="./path_x/buttons/ButtonStartMouseOver.png"></property>
@@ -51,16 +53,60 @@
         <property name="IMAGE_DIALOG_BOX"                       value="./path_x/DialogInfo.png"></property>
         <property name="IMAGE_BUTTON_CLOSE"                     value="./path_x/buttons/ButtonClose.png"></property>
         <property name="IMAGE_BUTTON_CLOSE_MOUSE_OVER"          value="./path_x/buttons/ButtonCloseMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_RETRY"                     value="./path_x/buttons/ButtonRetry.png"></property>
+        <property name="IMAGE_BUTTON_RETRY_MOUSE_OVER"          value="./path_x/buttons/ButtonRetryMouseOver.png"></property>
         
+        <property name="IMAGE_PLAYER"                           value="./path_x/Player.png"></property>
+        <property name="IMAGE_PLAYER_STEAL"                     value="./path_x/PlayerSteal.png"></property>
+        <property name="IMAGE_PLAYER_INTANGIBILITY"             value="./path_x/PlayerIntangibility.png"></property>
         
-        <property name="IMAGE_UNLOCKED_INTERSECTION"            value="./path_x/buttons/ButtonLevelUnlocked.png"></property>
-        <property name="IMAGE_LOCKED_INTERSECTION"              value="./path_x/buttons/ButtonLevelLocked.png"></property>
+        <property name="IMAGE_POLICE"                           value="./path_x/Police.png"></property>
+        <property name="IMAGE_POLICE_SELECTED"                  value="./path_x/PoliceSelected.png"></property>
+        <property name="IMAGE_POLICE_MINDLESS"                  value="./path_x/PoliceMindless.png"></property>
+        
+        <property name="IMAGE_BANDIT"                           value="./path_x/Bandit.png"></property>
+        <property name="IMAGE_BANDIT_SELECTED"                  value="./path_x/BanditSelected.png"></property>
+        <property name="IMAGE_BANDIT_MINDLESS"                  value="./path_x/BanditMindless.png"></property>
+        
+        <property name="IMAGE_ZOMBIE"                           value="./path_x/Zombie.png"></property>
+        <property name="IMAGE_ZOMBIE_SELECTED"                  value="./path_x/ZombieSelected.png"></property>
+        <property name="IMAGE_ZOMBIE_MINDLESS"                  value="./path_x/ZombieMindless.png"></property>
+        
+        <property name="IMAGE_GREEN_INTERSECTION"               value="./path_x/GreenLight.png"></property>
+        <property name="IMAGE_RED_INTERSECTION"                 value="./path_x/RedLight.png"></property>
+        <property name="IMAGE_CLOSED_INTERSECTION"              value="./path_x/ClosedLight.png"></property>
         
         <property name="IMAGE_WINDOW_ICON"                      value="./path_x/WindowIcon.png"></property>
 
         <!-- LEVELS -->
-        <property name="LEVEL1"                                 value="./Cali.xml"></property>
-        <property name="LEVEL2"                                 value="./TEST.xml"></property>
+        <property name="LEVEL1"                                 value="./Lemonade Stand Circuit 1.xml"></property>
+        <property name="LEVEL2"                                 value="./Lemonade Stand Circuit 2.xml"></property>
+        <property name="LEVEL3"                                 value="./Lemonade Stand Circuit 3.xml"></property>
+    
+        <property name="LEVEL4"                                 value="./Silicon Valley Circuit 1.xml"></property>
+        <property name="LEVEL5"                                 value="./Silicon Valley Circuit 2.xml"></property>
+        <property name="LEVEL6"                                 value="./Silicon Valley Circuit 3.xml"></property>
+        
+        <property name="LEVEL7"                                 value="./Nevada Casino Circuit 1.xml"></property>
+        <property name="LEVEL8"                                 value="./Nevada Casino Circuit 2.xml"></property>
+        <property name="LEVEL9"                                 value="./Nevada Casino Circuit 3.xml"></property>
+        
+        <property name="LEVEL10"                                value="./Old West Bank Circuit 1.xml"></property>
+        <property name="LEVEL11"                                value="./Old West Bank Circuit 2.xml"></property>
+        <property name="LEVEL12"                                value="./Old West Bank Circuit 3.xml"></property>
+        
+        <property name="LEVEL13"                                value="./Florida Retirees Circuit 1.xml"></property>
+        <property name="LEVEL14"                                value="./Florida Retirees Circuit 2.xml"></property>
+        <property name="LEVEL15"                                value="./Florida Retirees Circuit 3.xml"></property>
+        
+        <property name="LEVEL16"                                value="./I-95 Corridor Circuit 1.xml"></property>
+        <property name="LEVEL17"                                value="./I-95 Corridor Circuit 2.xml"></property>
+        <property name="LEVEL18"                                value="./I-95 Corridor Circuit 3.xml"></property>
+        
+        <property name="LEVEL19"                                value="./Wall Street Circuit 1.xml"></property>
+        <property name="LEVEL20"                                value="./Wall Street Circuit 2.xml"></property>
+        <property name="LEVEL21"                                value="./Wall Street Circuit 3.xml"></property>
+
 
         <!-- ALL THE TEXT TO BE DISPLAYED -->
         <property name="TEXT_ERROR_LOADING_AUDIO"               value="Error Loading an Audio File"></property>

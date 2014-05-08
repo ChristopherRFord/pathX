@@ -28,6 +28,8 @@ public class PathXLevelLoader
     
     // THIS IS THE SCHEMA WE'LL USE
     private File levelSchema;
+    
+    private int num = 1;
 
     /**
      * Constructor for making our importer/exporter. Note that it
@@ -50,7 +52,6 @@ public class PathXLevelLoader
     {
         try
         {
-
             level.reset();
             
             File levelFile = new File(level.getLevelLocation());
@@ -161,7 +162,7 @@ public class PathXLevelLoader
             int y = Integer.parseInt(yText);
             
             // NOW MAKE AND ADD THE INTERSECTION
-            Intersection newIntersection = new Intersection(x, y);
+            Intersection newIntersection = new Intersection(num++, x, y);
             newIntersection.open = Boolean.parseBoolean(openText);
             intersections.add(newIntersection);
         }

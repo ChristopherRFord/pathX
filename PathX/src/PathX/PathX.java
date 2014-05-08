@@ -106,17 +106,65 @@ public class PathX
         IMAGE_BUTTON_LEFT_ARROW_MOUSE_OVER,
         IMAGE_BUTTON_DOWN_ARROW,
         IMAGE_BUTTON_DOWN_ARROW_MOUSE_OVER,
+        IMAGE_BUTTON_PAUSE,
+        IMAGE_BUTTON_PAUSE_MOUSE_OVER,
         
         IMAGE_DIALOG_BOX,
         IMAGE_BUTTON_CLOSE,
         IMAGE_BUTTON_CLOSE_MOUSE_OVER,
+        IMAGE_BUTTON_RETRY,
+        IMAGE_BUTTON_RETRY_MOUSE_OVER,
         IMAGE_BUTTON_START,
         IMAGE_BUTTON_START_MOUSE_OVER,
+        
+        IMAGE_PLAYER,
+        IMAGE_PLAYER_STEAL,
+        IMAGE_PLAYER_INTANGIBILITY,
+        
+        IMAGE_POLICE,
+        IMAGE_POLICE_SELECTED,
+        IMAGE_POLICE_MINDLESS,
+        
+        IMAGE_BANDIT,
+        IMAGE_BANDIT_SELECTED,
+        IMAGE_BANDIT_MINDLESS,
+        
+        IMAGE_ZOMBIE,
+        IMAGE_ZOMBIE_SELECTED,
+        IMAGE_ZOMBIE_MINDLESS,
+        
+        IMAGE_GREEN_INTERSECTION,
+        IMAGE_RED_INTERSECTION,
+        IMAGE_CLOSED_INTERSECTION,
 
         //GAME IMAGES - LEVEL1
         LEVEL1,
         LEVEL2,
+        LEVEL3,
         
+        LEVEL4,
+        LEVEL5,
+        LEVEL6,
+        
+        LEVEL7,
+        LEVEL8,
+        LEVEL9,
+        
+        LEVEL10,
+        LEVEL11,
+        LEVEL12,
+        
+        LEVEL13,
+        LEVEL14,
+        LEVEL15,
+        
+        LEVEL16,
+        LEVEL17,
+        LEVEL18,
+        
+        LEVEL19,
+        LEVEL20,
+        LEVEL21,  
         
         IMAGE_WINDOW_ICON,
         

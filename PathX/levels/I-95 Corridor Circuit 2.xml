@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<level image="Level17BG.png" name="I-95 Corridor Circuit 2">
+     <intersections>
+          <intersection id="0" open="true" x="508" y="38"/>
+          <intersection id="1" open="true" x="521" y="462"/>
+          <intersection id="2" open="true" x="510" y="142"/>
+          <intersection id="3" open="false" x="513" y="230"/>
+          <intersection id="4" open="true" x="517" y="347"/>
+          <intersection id="5" open="true" x="630" y="145"/>
+          <intersection id="6" open="true" x="695" y="75"/>
+          <intersection id="7" open="true" x="804" y="62"/>
+          <intersection id="8" open="true" x="878" y="113"/>
+          <intersection id="9" open="true" x="889" y="217"/>
+          <intersection id="10" open="true" x="869" y="324"/>
+          <intersection id="11" open="true" x="702" y="346"/>
+          <intersection id="12" open="true" x="407" y="117"/>
+          <intersection id="13" open="true" x="311" y="64"/>
+          <intersection id="14" open="true" x="204" y="45"/>
+          <intersection id="15" open="true" x="139" y="128"/>
+          <intersection id="16" open="true" x="113" y="230"/>
+          <intersection id="17" open="true" x="144" y="324"/>
+          <intersection id="18" open="true" x="251" y="336"/>
+          <intersection id="19" open="true" x="361" y="344"/>
+     </intersections>
+     <roads>
+          <road int_id1="0" int_id2="2" one_way="true" speed_limit="100"/>
+          <road int_id1="2" int_id2="2" one_way="false" speed_limit="30"/>
+          <road int_id1="2" int_id2="3" one_way="false" speed_limit="100"/>
+          <road int_id1="3" int_id2="4" one_way="false" speed_limit="100"/>
+          <road int_id1="4" int_id2="1" one_way="true" speed_limit="100"/>
+          <road int_id1="19" int_id2="4" one_way="false" speed_limit="40"/>
+          <road int_id1="2" int_id2="12" one_way="false" speed_limit="40"/>
+          <road int_id1="12" int_id2="13" one_way="false" speed_limit="40"/>
+          <road int_id1="13" int_id2="14" one_way="false" speed_limit="40"/>
+          <road int_id1="14" int_id2="15" one_way="false" speed_limit="40"/>
+          <road int_id1="15" int_id2="16" one_way="false" speed_limit="40"/>
+          <road int_id1="16" int_id2="17" one_way="false" speed_limit="40"/>
+          <road int_id1="17" int_id2="18" one_way="false" speed_limit="40"/>
+          <road int_id1="18" int_id2="19" one_way="false" speed_limit="40"/>
+          <road int_id1="15" int_id2="4" one_way="true" speed_limit="20"/>
+          <road int_id1="2" int_id2="5" one_way="false" speed_limit="30"/>
+          <road int_id1="5" int_id2="6" one_way="false" speed_limit="30"/>
+          <road int_id1="6" int_id2="7" one_way="false" speed_limit="30"/>
+          <road int_id1="7" int_id2="8" one_way="false" speed_limit="30"/>
+          <road int_id1="8" int_id2="9" one_way="false" speed_limit="30"/>
+          <road int_id1="9" int_id2="10" one_way="false" speed_limit="30"/>
+          <road int_id1="10" int_id2="11" one_way="false" speed_limit="30"/>
+          <road int_id1="11" int_id2="4" one_way="false" speed_limit="30"/>
+     </roads>
+     <start_intersection id="0" image="Level17-18Start.png"/>
+     <destination_intersection id="1" image="Finish.png"/>
+     <money amount="340"/>
+     <police num="0"/>
+     <bandits num="0"/>
+     <zombies num="4"/>
+</level>
