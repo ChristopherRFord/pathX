@@ -34,5 +34,5 @@
      <money amount="120"/>
      <police num="0"/>
      <bandits num="0"/>
-     <zombies num="3"/>
+     <zombies num="1"/>
 </level>

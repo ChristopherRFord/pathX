@@ -34,6 +34,8 @@ public class PathXConstants
     //SETTINGS SCREEN BUTTONS
     public static final String MUSIC_BUTTON_TYPE = "MUSIC_BUTTON_TYPE";
     public static final String SOUND_BUTTON_TYPE = "SOUND_BUTTON_TYPE";
+    public static final String GAME_SPEED_TYPE = "GAME_SPEED_TYPE";
+    public static final String GAME_SPEED_CONTROLLER_TYPE = "GAME_SPEED_CONTROLLER_TYPE";
     
     //LEVEL SELECT SCREEN BUTTONS
     public static final String LEVEL_SELECT_MAP_TYPE = "LEVEL_SELECT_MAP_TYPE";
@@ -170,9 +172,34 @@ public class PathXConstants
     
     public static final String MIND_CONTROL = "MIND_CONTROL";
     public static final String MINDLESS_TERROR = "MINDLESS_TERROR";
+    
+    public static final String FLYING = "FLYING";
+            
     public static final String PLAYER_STATE = "PLAYER_STATE";
     public static final String PLAYER_STEAL_STATE = "PLAYER_STEAL_STATE";
     public static final String PLAYER_INTANGIBILITY_STATE = "PLAYER_INANGIBILITY_STATE";
+    public static final String PLAYER_INVINCIBILITY_STATE = "PLAYER_INVINCIBILITY_STATE";
+    
+    //POWER UPS
+    public static final String MAKE_LIGHT_GREEN_TYPE = "MAKE_LIGHT_GREEN_TYPE";
+    public static final String MAKE_LIGHT_RED_TYPE = "MAKE_LIGHT_RED_TYPE";
+    public static final String DECREASE_SPEED_LIMIT_TYPE = "DECREASE_SPEED_LIMIT_TYPE";
+    public static final String INCREASE_SPEED_LIMIT_TYPE = "INCREASE_SPEED_LIMIT_TYPE";
+    
+    public static final String INCREASE_PLAYER_SPEED_TYPE = "INCREASE_PLAYER_SPEED_TYPE";
+    public static final String FLAT_TIRE_TYPE = "FLAT_TIRE_TYPE";
+    public static final String EMPTY_GAS_TANK_TYPE = "EMPTY_GAS__TANK_TYPE";
+    public static final String CLOSE_ROAD_TYPE = "CLOSE_ROAD_TYPE";
+    
+    public static final String CI_TYPE = "CI_TYPE";
+    public static final String OI_TYPE = "OI_TYPE";
+    public static final String STEAL_TYPE = "STEAL_TYPE";
+    public static final String MIND_CONTROL_TYPE = "MIND_CONTROL_TYPE";
+    
+    public static final String INTANGIBILITY_TYPE = "INTANGIBILITY_TYPE";
+    public static final String MINDLESS_TERROR_TYPE = "MINDLESS_TERROR_TYPE";
+    public static final String FLYING_TYPE = "FLYING_TYPE";
+    public static final String INVINCIBILITY_TYPE = "INVINCIBILITY_TYPE";
     
     // ANIMATION SPEED
     public static final int FPS = 30;

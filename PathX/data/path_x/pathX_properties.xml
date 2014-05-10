@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    The properties in this file setup a Harry Potter flavor of this game called
-    The Sorting Hat. Note that by swapping out all these settings we could easily
-    change the flavor.
--->
+
 <properties>
     <property_list>
         <!-- ALL THE IMAGES TO BE USED IN THE GAME -->
@@ -28,6 +24,10 @@
         <property name="IMAGE_BUTTON_HELP_MOUSE_OVER"           value="./path_x/buttons/ButtonHelpMouseOver.png"></property>
         <property name="IMAGE_BUTTON_SETTINGS_OPTION"           value="./path_x/buttons/ButtonSettingsOption.png"></property>
         <property name="IMAGE_BUTTON_SETTINGS_OPTION_SELECTED"  value="./path_x/buttons/ButtonSettingsOptionSelected.png"></property>
+        
+        <property name="IMAGE_GAME_SPEED_BAR"                           value="./path_x/GameSpeedBar.png"></property>
+        <property name="IMAGE_BUTTON_GAME_SPEED_CONTROLLER"             value="./path_x/GameSpeedController.png"></property>
+        <property name="IMAGE_BUTTON_GAME_SPEED_CONTROLLER_MOUSE_OVER"  value="./path_X/GameSpeedControllerMouseOver.png"></property>
         
         <property name="IMAGE_LEVEL_SELECT_MAP"                 value="./path_x/Map.png"></property>
         
@@ -59,6 +59,7 @@
         <property name="IMAGE_PLAYER"                           value="./path_x/Player.png"></property>
         <property name="IMAGE_PLAYER_STEAL"                     value="./path_x/PlayerSteal.png"></property>
         <property name="IMAGE_PLAYER_INTANGIBILITY"             value="./path_x/PlayerIntangibility.png"></property>
+        <property name="IMAGE_PLAYER_INVINCIBILITY"             value="./path_x/PlayerInvincibility.png"></property>
         
         <property name="IMAGE_POLICE"                           value="./path_x/Police.png"></property>
         <property name="IMAGE_POLICE_SELECTED"                  value="./path_x/PoliceSelected.png"></property>
@@ -106,6 +107,44 @@
         <property name="LEVEL19"                                value="./Wall Street Circuit 1.xml"></property>
         <property name="LEVEL20"                                value="./Wall Street Circuit 2.xml"></property>
         <property name="LEVEL21"                                value="./Wall Street Circuit 3.xml"></property>
+        
+        <!-- POWER UPS -->
+        <property name="IMAGE_BUTTON_MAKE_LIGHT_GREEN"                  value="./path_x/buttons/ButtonMakeLightGreen.png"></property>
+        <property name="IMAGE_BUTTON_MAKE_LIGHT_GREEN_MOUSE_OVER"       value="./path_x/buttons/ButtonMakeLightGreenMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_MAKE_LIGHT_RED"                    value="./path_x/buttons/ButtonMakeLightRed.png"></property>
+        <property name="IMAGE_BUTTON_MAKE_LIGHT_RED_MOUSE_OVER"         value="./path_x/buttons/ButtonMakeLightRedMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_DECREASE_SPEED_LIMIT"              value="./path_x/buttons/ButtonDecreaseSpeedLimit.png"></property>
+        <property name="IMAGE_BUTTON_DECREASE_SPEED_LIMIT_MOUSE_OVER"   value="./path_x/buttons/ButtonDecreaseSpeedLimitMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_INCREASE_SPEED_LIMIT"              value="./path_x/buttons/ButtonIncreaseSpeedLimit.png"></property>
+        <property name="IMAGE_BUTTON_INCREASE_SPEED_LIMIT_MOUSE_OVER"   value="./path_x/buttons/ButtonIncreaseSpeedLimitMouseOver.png"></property>
+        
+        <property name="IMAGE_BUTTON_INCREASE_PLAYER_SPEED"             value="./path_x/buttons/ButtonIncreasePlayerSpeed.png"></property>
+        <property name="IMAGE_BUTTON_INCREASE_PLAYER_SPEED_MOUSE_OVER"  value="./path_x/buttons/ButtonIncreasePlayerSpeedMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_FLAT_TIRE"                         value="./path_x/buttons/ButtonFlatTire.png"></property>
+        <property name="IMAGE_BUTTON_FLAT_TIRE_MOUSE_OVER"              value="./path_x/buttons/ButtonFlatTireMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_EMPTY_GAS_TANK"                    value="./path_x/buttons/ButtonEmptyGasTank.png"></property>
+        <property name="IMAGE_BUTTON_EMPTY_GAS_TANK_MOUSE_OVER"         value="./path_x/buttons/ButtonEmptyGasTankMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE_ROAD"                        value="./path_x/buttons/ButtonCloseRoad.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE_ROAD_MOUSE_OVER"             value="./path_x/buttons/ButtonCloseRoadMouseOver.png"></property>
+        
+        <property name="IMAGE_BUTTON_CLOSE_INTERSECTION"                value="./path_x/buttons/ButtonCloseIntersection.png"></property>
+        <property name="IMAGE_BUTTON_CLOSE_INTERSECTION_MOUSE_OVER"     value="./path_x/buttons/ButtonCloseIntersectionMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_OPEN_INTERSECTION"                 value="./path_x/buttons/ButtonOpenIntersection.png"></property>
+        <property name="IMAGE_BUTTON_OPEN_INTERSECTION_MOUSE_OVER"      value="./path_x/buttons/ButtonOpenIntersectionMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_STEAL"                             value="./path_x/buttons/ButtonSteal.png"></property>
+        <property name="IMAGE_BUTTON_STEAL_MOUSE_OVER"                  value="./path_x/buttons/ButtonStealMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_MIND_CONTROL"                      value="./path_x/buttons/ButtonMindControl.png"></property>
+        <property name="IMAGE_BUTTON_MIND_CONTROL_MOUSE_OVER"           value="./path_x/buttons/ButtonMindControlMouseOver.png"></property>
+        
+        <property name="IMAGE_BUTTON_INTANGIBILITY"                     value="./path_X/buttons/ButtonIntangibility.png"></property>
+        <property name="IMAGE_BUTTON_INTANGIBILITY_MOUSE_OVER"          value="./path_x/buttons/ButtonIntangibilityMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_MINDLESS_TERROR"                   value="./path_x/buttons/ButtonMindlessTerror.png"></property>
+        <property name="IMAGE_BUTTON_MINDLESS_TERROR_MOUSE_OVER"        value="./path_x/buttons/ButtonMindlessTerrorMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_FLYING"                            value="./path_x/buttons/ButtonFlying.png"></property>
+        <property name="IMAGE_BUTTON_FLYING_MOUSE_OVER"                 value="./path_x/buttons/ButtonFlyingMouseOver.png"></property>
+        <property name="IMAGE_BUTTON_INVINCIBILITY"                     value="./path_x/buttons/ButtonInvincibility.png"></property>
+        <property name="IMAGE_BUTTON_INVINCIBILITY_MOUSE_OVER"          value="./path_X/buttons/ButtonInvincibilityMouseOver.png"></property>
+
 
 
         <!-- ALL THE TEXT TO BE DISPLAYED -->

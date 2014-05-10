@@ -134,6 +134,12 @@ public class MainMenuScreen extends PathXScreen
             public void actionPerformed(ActionEvent ae)
                 {   game.enter(game.LevelSelectScreen); }
         });
+        
+        buttons.get(RESET_BUTTON_TYPE).setActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae)
+                {   data.reset(game); }
+        });
     
         buttons.get(SETTINGS_BUTTON_TYPE).setActionListener(new ActionListener(){
             @Override

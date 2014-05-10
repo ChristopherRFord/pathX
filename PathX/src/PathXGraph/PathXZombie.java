@@ -7,6 +7,7 @@ package PathXGraph;
 
 import PathX.PathX;
 
+import static PathX.PathXConstants.POLICE_MINDLESS_STATE;
 import static PathX.PathXConstants.ZOMBIE_MINDLESS_STATE;
 import static PathX.PathXConstants.ZOMBIE_SELECTED_STATE;
 import static PathX.PathXConstants.ZOMBIE_STATE;
@@ -35,6 +36,8 @@ public class PathXZombie
 
     private PathXGame game;
     private GameLevel level;
+    private PathXDataModel d;
+    
     private ArrayList<Road> shortestPath;
     public Intersection targetIntersection, currentIntersection;
     private int currentRoad;
@@ -50,34 +53,40 @@ public class PathXZombie
     private long timeEnd;
     private long timeDelta;
 
+    private long mcStart;
+    private long mcEnd;
+    private long mcDelta;
+    
+    private long mtStart;
+    private long mtEnd;
+    private long mtDelta;
+
     public boolean powerUp;
 
     public boolean flatTire, emptyGasTank;
 
-    public boolean mindControl, selected;
-    private ArrayList<Road> tempShortestPath;
-    private Intersection tempTargetIntersection;
-    private int tempCurrentRoad;
+    public boolean mindControl, mindControlSelected;
+    private boolean controlArrived, pathBack;
+    private boolean rl;
 
-    public boolean mindlessTerror;
+    public boolean mindlessTerror, closestIntersection;
 
     public boolean stunned;
     public long stunStart;
     private long stunEnd;
     private long stunDelta;
-    private Road currentRoadTemp;
+    private Road currentR;
 
     private PathXZombie thisZ;
     public Intersection tempTarget;
-    private boolean controlArrived;
-    private boolean atIntersection;
-    private boolean pathBack;
+    private boolean atIntersection = true;
 
     public PathXZombie(final PathXGame game, GameLevel level)
     {
         this.game = game;
         this.level = level;
         thisZ = this;
+        d = (PathXDataModel) game.getDataModel();
 
         int r = 0;
         int min = 0;
@@ -102,7 +111,7 @@ public class PathXZombie
             r = (int) ((min + Math.random() * (max - min)));
             Intersection tempIntersection = level.getIntersections().get(r);
 
-                //IF THE INTERSECTION ISN'T OPEN OR IS THE DESTINATION/STARTING INTERSECTION 
+            //IF THE INTERSECTION ISN'T OPEN OR IS THE DESTINATION/STARTING INTERSECTION 
             //OR THE CURRENTER INTERSECTION EQUALS THE TARGET INTERSECTIONTHEN SKIP THIS WHILE LOOP ITERATION
             if (!tempIntersection.open)
             {
@@ -119,16 +128,6 @@ public class PathXZombie
 
             targetIntersection = tempIntersection;
             finalIntersection = tempIntersection;
-        }
-
-        shortestPath = ((GameScreen) game.getCurrentScreen()).getGraphManager().shortestNoRLDijkstraPath(currentIntersection, targetIntersection);
-
-        if (currentIntersection == shortestPath.get(0).getNode1())
-        {
-            targetIntersection = shortestPath.get(0).getNode2();
-        } else
-        {
-            targetIntersection = shortestPath.get(0).getNode1();
         }
 
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -189,7 +188,8 @@ public class PathXZombie
                     mindlessTerror = true;
                     powerUp = true;
                     game.GameScreen.currentPowerUp = "";
-                    timeStart = System.currentTimeMillis();
+
+                    mtStart = System.currentTimeMillis();
                 }
 
             }
@@ -205,17 +205,16 @@ public class PathXZombie
         {
             stunEnd = System.currentTimeMillis();
             stunDelta = (stunEnd - stunStart) / 1000;
-            
 
             if (stunDelta == 20)
             {
                 stunned = false;
                 return;
             }
-            
+
             return;
         }
-        
+
         if (flatTire)
         {
             timeEnd = System.currentTimeMillis();
@@ -252,96 +251,203 @@ public class PathXZombie
 
         Sprite.update(game);
 
-        /**
-         * MIND CONTROL
-         */
         if (mindControl)
         {
-            if (controlArrived)
-            {
-                timeEnd = System.currentTimeMillis();
-                timeDelta = (timeEnd - timeStart) / 1000;
-
-                if (timeDelta == 5)
-                {
-                    timeStart = 0;
-                    timeEnd = 0;
-                    timeDelta = 0;
-                    tempTarget = null;
-                    tempShortestPath = null;
-                    controlArrived = false;
-                    tempCurrentRoad = 0;
-                    selected = false;
-                    powerUp = false;
-                    pathBack = true;
-
-                    tempShortestPath = game.GameScreen.getGraphManager().shortestDijkstraPath(currentIntersection, startIntersection);
-                    if (currentIntersection == tempShortestPath.get(tempCurrentRoad).getNode1())
-                    {
-                        tempTargetIntersection = tempShortestPath.get(tempCurrentRoad).getNode2();
-                    } else
-                    {
-                        tempTargetIntersection = tempShortestPath.get(tempCurrentRoad).getNode1();
-                    }
-                }
-            } else if (pathBack)
-            {
-                boolean finished = mindControl();
-                if (finished)
-                {
-                    atIntersection = false;
-                    mindControl = false;
-                    selected = false;
-                    currentRoad = 0;
-                    reverse = false;
-
-                    if (currentIntersection == shortestPath.get(0).getNode1())
-                    {
-                        targetIntersection = shortestPath.get(0).getNode2();
-                    } else
-                    {
-                        targetIntersection = shortestPath.get(0).getNode1();
-                    }
-
-                }
-            } else
-            {
-                controlArrived = mindControl();
-            }
+            mindControl();
             return;
         }
-
+        
+        if (mindlessTerror)
+        {
+            mindlessTerror();
+            return;
+        }
 
         regularActivity();
     }
 
     private void regularActivity()
     {
-
-        /**
-         * SET UP SHORTEST PATH FOR MIND CONTROL
-         */
-        if (atIntersection && selected)
+        if (atIntersection)
         {
-            mindControl = true;
-            selected = false;
-            setShortestPath();
-            return;
-        }
+            if (mindControlSelected)
+            {
+                mindControlSelected = false;
+                mindControl = true;
+                
+                shortestPath = null;
+                targetIntersection = null;
+                currentRoad = 0;
+                return;
+            }
 
-        /**
-         * IF THERE IS A REASON TO MOVE
-         */
-        if (targetIntersection != null)
+            if (!reverse)
+            {
+                shortestPath = game.GameScreen.getGraphManager().shortestNoCRDijkstraPath(startIntersection, finalIntersection);
+            } else
+            {
+                shortestPath = game.GameScreen.getGraphManager().shortestNoCRDijkstraPath(finalIntersection, startIntersection);
+            }
+            
+            if (shortestPath == null)
+                return;
+            if (shortestPath.isEmpty())
+                return;
+
+            //FIND FIRST NODE
+            currentR = shortestPath.get(0);
+            if (currentIntersection == shortestPath.get(0).getNode1())
+            {
+                targetIntersection = shortestPath.get(0).getNode2();
+            } else
+            {
+                targetIntersection = shortestPath.get(0).getNode1();
+            }
+
+            atIntersection = false;
+        } 
+        else
         {
             //CREATE VELOCITY
             float x = (targetIntersection.getX() - currentIntersection.getX()) * .0005f;
             float y = (targetIntersection.getY() - currentIntersection.getY()) * .0005f;
 
-            //SET VELOCITY
-            Sprite.setVx(x * shortestPath.get(currentRoad).getSpeedLimit());
-            Sprite.setVy(y * shortestPath.get((currentRoad)).getSpeedLimit());
+            if (shortestPath != null)
+            {
+                //SET VELOCITY
+                Sprite.setVx(x * shortestPath.get((currentRoad)).getSpeedLimit() * d.gameSpeed);
+                Sprite.setVy(y * shortestPath.get((currentRoad)).getSpeedLimit() * d.gameSpeed);
+            } else
+            {
+                //SET VELOCITY
+                Sprite.setVx(x * currentR.getSpeedLimit());
+                Sprite.setVy(y * currentR.getSpeedLimit());
+            }
 
+            Sprite tempIntersection = ((GameScreen) game.getCurrentScreen()).getIntersections().get(targetIntersection.ID - 1);
+
+            //RECOVERING FROM A RED LIGHT
+            if (tempIntersection.containsPoint(Sprite.getX() + 20, Sprite.getY() + 20) && rl)
+            {
+                Sprite.setVx(0);
+                Sprite.setVy(0);
+
+                //SET THE X AND Y COORDS OF THE PLAYER ON TO THE SPRITE
+                Sprite.setX(tempIntersection.getX());
+                Sprite.setY(tempIntersection.getY());
+
+                //REVERSE THE
+                rl = false;
+                currentIntersection = targetIntersection;
+                targetIntersection = null;
+                shortestPath = null;
+                currentRoad = 0;
+
+                atIntersection = true;
+            } //IF THE PLAYER HAS REACHED TARGET INTERSECTION
+            else if (tempIntersection.containsPoint(Sprite.getX() + 20, Sprite.getY() + 20))
+            {
+                Sprite.setVx(0);
+                Sprite.setVy(0);
+
+                //SETTING UP RECOVERING FROM A RED LIGHT
+                if (rl)
+                {
+                    rl = false;
+                    currentIntersection = targetIntersection;
+                    targetIntersection = null;
+                    atIntersection = true;
+
+                    return;
+                }
+
+                //WE HIT A RED LIGHT
+                if (!targetIntersection.open && !rl)
+                {
+                    rl = true;
+
+                    Intersection i = currentIntersection;
+                    currentIntersection = targetIntersection;
+                    targetIntersection = i;
+
+                    return;
+                }
+
+                //SET THE X AND Y COORDS OF THE PLAYER ON TO THE SPRITE
+                Sprite.setX(tempIntersection.getX());
+                Sprite.setY(tempIntersection.getY());
+
+                currentIntersection = targetIntersection;
+                
+                currentRoad++;
+                
+                if (mindControlSelected)
+                {
+                    mindControlSelected = false;
+                    mindControl = true;
+                
+                    shortestPath = null;
+                    currentRoad = 0;
+                    return;
+                }
+
+                //THE DESTINATION HAS BEEN REACHED, STOPPED EVERYTHING
+                if (currentRoad == shortestPath.size())
+                {
+                    reverse = !reverse;
+                    targetIntersection = null;
+                    shortestPath = null;
+                    atIntersection = true;
+                    Sprite.setVx(0);
+                    Sprite.setVy(0);
+                    currentRoad = 0;
+
+                } //GET NEXT TARGET NODE
+                else
+                {
+                    currentR = shortestPath.get(currentRoad);
+                    if (currentIntersection == shortestPath.get(currentRoad).getNode1())
+                    {
+                        targetIntersection = shortestPath.get(currentRoad).getNode2();
+                    } else
+                    {
+                        targetIntersection = shortestPath.get(currentRoad).getNode1();
+                    }
+                }
+            }
+        }
+    }
+
+    private void mindControl()
+    {      
+        if (pathBack)
+        {
+            if (shortestPath ==  null)
+            {
+                shortestPath = game.GameScreen.getGraphManager().shortestNoCRDijkstraPath(currentIntersection, startIntersection);
+                
+                if (currentIntersection == null) System.out.println("a");
+                if (shortestPath == null)   System.out.println("b");
+                
+                if (currentIntersection == shortestPath.get(currentRoad).getNode1())
+                {
+                    targetIntersection = shortestPath.get(currentRoad).getNode2();
+                } 
+                else
+                {
+                    targetIntersection = shortestPath.get(currentRoad).getNode1();
+                }
+                return;
+            }
+         
+            //CREATE VELOCITY
+            float x = (targetIntersection.getX() - currentIntersection.getX()) * .0005f;
+            float y = (targetIntersection.getY() - currentIntersection.getY()) * .0005f;
+
+            //SET VELOCITY
+            Sprite.setVx(x * shortestPath.get((currentRoad)).getSpeedLimit() * d.gameSpeed);
+            Sprite.setVy(y * shortestPath.get((currentRoad)).getSpeedLimit() * d.gameSpeed);
+            
             //GET SPRITE OF TARGET INTERSECTION
             Sprite tempIntersection = ((GameScreen) game.getCurrentScreen()).getIntersections().get(targetIntersection.ID - 1);
 
@@ -357,117 +463,286 @@ public class PathXZombie
 
                 //INCRAMENT INTERSECTIONS
                 currentIntersection = targetIntersection;
-
-                if (!reverse)
-                {
-                    currentRoad++;
-                } else
-                {
-                    currentRoad--;
-                }
-
-                //RETURN FOR MIND CONTROL
-                if (selected)
-                {
-                    atIntersection = true;
-                    return;
-                }
-
+                currentRoad++;
+                
                 //THE DESTINATION HAS BEEN REACHED, STOPPED EVERYTHING
-                if (currentRoad == shortestPath.size() || currentRoad == -1)
+                if (currentRoad == shortestPath.size())
                 {
-                    reverse = !reverse;
-                    if (!reverse)
+                    mindControl = false;
+                    pathBack = false;
+                    shortestPath = null;
+                    currentRoad = 0;
+                    targetIntersection = null;
+                    atIntersection = true;
+                    reverse = false;
+
+                } //GET NEXT TARGET NODE
+                else
+                {
+                    if (currentIntersection == shortestPath.get(currentRoad).getNode1())
                     {
-                        currentRoad++;
-                    } else
+                        targetIntersection = shortestPath.get(currentRoad).getNode2();
+                    } 
+                    else
                     {
-                        currentRoad--;
+                        targetIntersection = shortestPath.get(currentRoad).getNode1();
                     }
                 }
+            }
+        
+            return;
+        }
+        
+        if (shortestPath == null)
+        {
+            setShortestPath();
+            return;
+        }
+       
+        if (controlArrived)
+        {
+            mcEnd = System.currentTimeMillis();
+            mcDelta = (mcEnd - mcStart) / 1000;
 
-                //GET NEXT TARGET NODE
+            if (mcDelta == 20)
+            {
+                mcStart = 0;
+                mcEnd = 0;
+                mcDelta = 0;
+
+                controlArrived = false;
+                pathBack = true;
+                atIntersection = true;
+                powerUp = false;
+
+                targetIntersection = null;
+                shortestPath = null;
+                currentRoad = 0;
+
+            }
+            return;
+        }
+        
+        //STOPPED BECAUSE RODE IS CLOSED
+        if (currentRoad <= shortestPath.size() - 1 && shortestPath.get(currentRoad).closed)
+        {
+
+            mcStart = System.currentTimeMillis();
+            controlArrived = true;
+
+            return;
+        }
+        
+        
+        //CREATE VELOCITY
+        float x = (targetIntersection.getX() - currentIntersection.getX()) * .0005f;
+        float y = (targetIntersection.getY() - currentIntersection.getY()) * .0005f;
+
+        //SET VELOCITY
+        Sprite.setVx(x * shortestPath.get((currentRoad)).getSpeedLimit() * d.gameSpeed);
+        Sprite.setVy(y * shortestPath.get((currentRoad)).getSpeedLimit() * d.gameSpeed);
+        
+        //GET SPRITE OF TARGET INTERSECTION
+        Sprite tempIntersection = ((GameScreen) game.getCurrentScreen()).getIntersections().get(targetIntersection.ID - 1);
+
+        //IF THE PLAYER HAS REACHED TARGET INTERSECTION
+        if (tempIntersection.containsPoint(Sprite.getX() + 20, Sprite.getY() + 20))
+        {
+            Sprite.setVx(0);
+            Sprite.setVy(0);
+
+            //SET THE X AND Y COORDS OF THE PLAYER ON TO THE SPRITE
+            Sprite.setX(tempIntersection.getX());
+            Sprite.setY(tempIntersection.getY());
+
+            //INCRAMENT INTERSECTIONS
+            currentIntersection = targetIntersection;
+            currentRoad++;
+
+            //THE DESTINATION HAS BEEN REACHED, STOPPED EVERYTHING
+            if (currentRoad == shortestPath.size())
+            {
+
+                mcStart = System.currentTimeMillis();
+                controlArrived = true;
+
+            } //GET NEXT TARGET NODE
+            else
+            {
+                                    currentR = shortestPath.get(currentRoad);
                 if (currentIntersection == shortestPath.get(currentRoad).getNode1())
                 {
                     targetIntersection = shortestPath.get(currentRoad).getNode2();
-                } else
+                } 
+                else
                 {
                     targetIntersection = shortestPath.get(currentRoad).getNode1();
                 }
             }
         }
     }
-
-    /**
-     * DIJKSTRA'S SHORTEST PATH FOR MIND CONTROL
+     /*
+     *  RANDOMNESS FOR SHORTEST PATH
      */
-    public boolean mindControl()
+    private void mindlessTerror()
     {
-        /**
-         * IF THERE IS A REASON TO MOVE
-         */
-        if (tempTargetIntersection != null)
+        if (pathBack)
         {
-            //CREATE VELOCITY
-            float x = (tempTargetIntersection.getX() - currentIntersection.getX()) * .0005f;
-            float y = (tempTargetIntersection.getY() - currentIntersection.getY()) * .0005f;
-            //SET VELOCITY
-            Sprite.setVx(x * tempShortestPath.get((tempCurrentRoad)).getSpeedLimit());
-            Sprite.setVy(y * tempShortestPath.get((tempCurrentRoad)).getSpeedLimit());
+           
+            if (shortestPath ==  null)
+            {
+                shortestPath = game.GameScreen.getGraphManager().shortestNoCRDijkstraPath(currentIntersection, startIntersection);
+                
 
+                
+                if (shortestPath == null)
+                {
+                    mindlessTerror = false;
+                    pathBack = false;
+                    shortestPath = null;
+                    currentRoad = 0;
+                    targetIntersection = null;
+                    atIntersection = true;
+                    reverse = false;
+                    return;
+                }
+                
+                if (currentIntersection == shortestPath.get(currentRoad).getNode1())
+                {
+                    targetIntersection = shortestPath.get(currentRoad).getNode2();
+                } 
+                else
+                {
+                    targetIntersection = shortestPath.get(currentRoad).getNode1();
+                }
+                return;
+            }
+         
+            //CREATE VELOCITY
+            float x = (targetIntersection.getX() - currentIntersection.getX()) * .0005f;
+            float y = (targetIntersection.getY() - currentIntersection.getY()) * .0005f;
+
+            //SET VELOCITY
+            Sprite.setVx(x * shortestPath.get((currentRoad)).getSpeedLimit() * d.gameSpeed);
+            Sprite.setVy(y * shortestPath.get((currentRoad)).getSpeedLimit() * d.gameSpeed);
+            
             //GET SPRITE OF TARGET INTERSECTION
-            Sprite tempIntersection = ((GameScreen) game.getCurrentScreen()).getIntersections().get(tempTargetIntersection.ID - 1);
+            Sprite tempIntersection = ((GameScreen) game.getCurrentScreen()).getIntersections().get(targetIntersection.ID - 1);
 
             //IF THE PLAYER HAS REACHED TARGET INTERSECTION
             if (tempIntersection.containsPoint(Sprite.getX() + 20, Sprite.getY() + 20))
             {
+                Sprite.setVx(0);
+                Sprite.setVy(0);
+
                 //SET THE X AND Y COORDS OF THE PLAYER ON TO THE SPRITE
                 Sprite.setX(tempIntersection.getX());
                 Sprite.setY(tempIntersection.getY());
 
                 //INCRAMENT INTERSECTIONS
-                currentIntersection = tempTargetIntersection;
-                tempCurrentRoad++;
-
+                currentIntersection = targetIntersection;
+                currentRoad++;
+                
                 //THE DESTINATION HAS BEEN REACHED, STOPPED EVERYTHING
-                if (tempCurrentRoad == tempShortestPath.size())
+                if (currentRoad == shortestPath.size())
                 {
-                    tempTargetIntersection = null;
-                    tempShortestPath = null;
-                    Sprite.setVx(0);
-                    Sprite.setVy(0);
-                    tempCurrentRoad = 0;
+                    mindlessTerror = false;
+                    pathBack = false;
+                    shortestPath = null;
+                    currentRoad = 0;
+                    targetIntersection = null;
+                    atIntersection = true;
+                    reverse = false;
 
-                    timeStart = System.currentTimeMillis();
-
-                    return true;
                 } //GET NEXT TARGET NODE
                 else
                 {
-                    Sprite.setVx(0);
-                    Sprite.setVy(0);
-                    if (currentIntersection == tempShortestPath.get(tempCurrentRoad).getNode1())
+                    if (currentIntersection == shortestPath.get(currentRoad).getNode1())
                     {
-                        tempTargetIntersection = tempShortestPath.get(tempCurrentRoad).getNode2();
-                    } else
+                        targetIntersection = shortestPath.get(currentRoad).getNode2();
+                    } 
+                    else
                     {
-                        tempTargetIntersection = tempShortestPath.get(tempCurrentRoad).getNode1();
+                        targetIntersection = shortestPath.get(currentRoad).getNode1();
                     }
                 }
             }
+        
+            return;
         }
-        return false;
-    }
+        mtEnd = System.currentTimeMillis();
+        mtDelta = (mtEnd - mtStart) / 1000;
 
-    private void mindlessTerror()
-    {
+        if (mtDelta > 20 && atIntersection)
+        {
+            Sprite.setState(ZOMBIE_STATE);
+            pathBack = true;
+            mtStart = 0;
+            mtEnd = 0;
+            mtDelta = 0;
+            powerUp = false;
+
+            shortestPath = null;
+
+            currentRoad = 0;
+
+            return;
+        }
+        
+        //CHECK COLLISION
+        Iterator<PathXPolice> pIt = game.GameScreen.getPolice().iterator();
+        while (pIt.hasNext())
+        {
+            PathXPolice p = pIt.next();
+
+            if (p.stunned) continue;
+            if (p.mindlessTerror) continue;
+
+            if (p.getSprite().containsPoint(Sprite.getX() + 20, Sprite.getY() + 20))
+            {
+                p.stunStart = System.currentTimeMillis();
+                p.stunned = true;
+            }
+        }
+
+        Iterator<PathXBandit> bIt = game.GameScreen.getBandits().iterator();
+        while (bIt.hasNext())
+        {
+            PathXBandit b = bIt.next();
+
+            if (b.stunned) continue;
+            if (b.mindlessTerror) continue;
+
+            if (b.getSprite().containsPoint(Sprite.getX() + 20, Sprite.getY() + 20))
+            {
+                b.stunStart = System.currentTimeMillis();
+                b.stunned = true;
+            }
+        }
+
+        Iterator<PathXZombie> zIt = game.GameScreen.getZombies().iterator();
+        while (zIt.hasNext())
+        {
+            PathXZombie z = zIt.next();
+
+            if (z == this) continue;
+            if (z.stunned) continue;
+            if (z.mindlessTerror) continue;
+
+            if (z.getSprite().containsPoint(Sprite.getX() + 20, Sprite.getY() + 20))
+            {
+                z.stunStart = System.currentTimeMillis();
+                z.stunned = true;
+            }
+        }
+
         if (atIntersection)
         {
             //IF THERE ARE NO POSSIBLE INTERSECTIONS AVAILABLE, DO NOTHING
             boolean open = false;
             for (int i = 0; i < currentIntersection.getIntersections().size(); i++)
             {
-                if (currentIntersection.getIntersections().get(i).open)
+                if (currentIntersection.getIntersections().get(i).open && !currentIntersection.getIntersections().get(i).closed)
                 {
                     open = true;
                 }
@@ -497,8 +772,10 @@ public class PathXZombie
                 while (roadIt.hasNext())
                 {
                     Road tempRoad = roadIt.next();
+
                     if ((tempRoad.node1 == currentIntersection) && (tempRoad.node2 == tempIntersection))
                     {
+
                         road = tempRoad;
                         break;
                     } else if (((tempRoad.node1 == tempIntersection) && (tempRoad.node2 == currentIntersection)) && !tempRoad.oneWay)
@@ -508,63 +785,40 @@ public class PathXZombie
                     }
                 }
 
-                //IF THE ROAD IS ONE WAY AND CAN'T BE TRAVELED ON, THEN DO NOTHING
                 if (road != null)
                 {
                     targetIntersection = tempIntersection;
-                    currentRoadTemp = road;
+                    currentR = road;
                     atIntersection = false;
+                }
+
+                if (road == null)
+                {
+                    targetIntersection = null;
+                    return;
                 }
             }
         } //move
         else
         {
-            if (currentRoadTemp == null)
-            {
-                currentRoadTemp = shortestPath.get(currentRoad);
-            }
-
             //CREATE VELOCITY
             float x = (targetIntersection.getX() - currentIntersection.getX()) * .0005f;
             float y = (targetIntersection.getY() - currentIntersection.getY()) * .0005f;
 
             //SET VELOCITY
-            Sprite.setVx(x * currentRoadTemp.getSpeedLimit() * 2);
-            Sprite.setVy(y * currentRoadTemp.getSpeedLimit() * 2);
+            Sprite.setVx(x * currentR.getSpeedLimit() * d.gameSpeed * 2);
+            Sprite.setVy(y * currentR.getSpeedLimit() * d.gameSpeed * 2);
 
             //GET SPRITE OF TARGET INTERSECTION
             Sprite tempIntersection = ((GameScreen) game.getCurrentScreen()).getIntersections().get(targetIntersection.ID - 1);
 
-            //POLICE COLLISION
-            Iterator<PathXPolice> pIt = game.GameScreen.getPolice().iterator();
-            while (pIt.hasNext())
-            {
-                PathXPolice p = pIt.next();
-
-                if (p.getSprite().containsPoint(Sprite.getX() + 20, Sprite.getY() + 20) && !p.stunned && (!p.mindlessTerror && !p.mindControl))
-                {
-                    p.stunned = true;
-                    p.stunStart = System.currentTimeMillis();
-                }
-            }
-
-            Iterator<PathXBandit> bIt = game.GameScreen.getBandits().iterator();
-            while (bIt.hasNext())
-            {
-                PathXBandit b = bIt.next();
-
-                if (b.getSprite().containsPoint(Sprite.getX() + 20, Sprite.getY() + 20))
-                {
-                    b.stunned = true;
-                    b.stunStart = System.currentTimeMillis();
-                }
-            }
-
             //IF THE PLAYER HAS REACHED TARGET INTERSECTION
             if (tempIntersection.containsPoint(Sprite.getX() + 20, Sprite.getY() + 20))
             {
+                if (pathBack) closestIntersection = true;
                 Sprite.setVx(0);
                 Sprite.setVy(0);
+
                 //SET THE X AND Y COORDS OF THE PLAYER ON TO THE SPRITE
                 Sprite.setX(tempIntersection.getX());
                 Sprite.setY(tempIntersection.getY());
@@ -572,12 +826,9 @@ public class PathXZombie
                 //PREPARE NEXT LOOP FOR CREATING A NEW TARGET INTERSECTION
                 currentIntersection = targetIntersection;
                 targetIntersection = null;
-                currentRoadTemp = null;
                 atIntersection = true;
-                
             }
         }
-
     }
 
     /*
@@ -587,15 +838,16 @@ public class PathXZombie
     {
         powerUp = true;
 
-        tempShortestPath = game.GameScreen.getGraphManager().shortestDijkstraPath(currentIntersection, tempTarget);
-        tempCurrentRoad = 0;
+        shortestPath = game.GameScreen.getGraphManager().shortestNoRLDijkstraPath(currentIntersection, tempTarget);
+        currentRoad = 0;
 
-        if (currentIntersection == tempShortestPath.get(tempCurrentRoad).getNode1())
+
+        if (currentIntersection == shortestPath.get(currentRoad).getNode1())
         {
-            tempTargetIntersection = tempShortestPath.get(tempCurrentRoad).getNode2();
+            targetIntersection = shortestPath.get(currentRoad).getNode2();
         } else
         {
-            tempTargetIntersection = tempShortestPath.get(tempCurrentRoad).getNode1();
+            targetIntersection = shortestPath.get(currentRoad).getNode1();
         }
     }
 

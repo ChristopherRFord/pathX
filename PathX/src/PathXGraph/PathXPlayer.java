@@ -7,6 +7,7 @@ package PathXGraph;
 
 import PathX.PathX;
 import static PathX.PathXConstants.PLAYER_INTANGIBILITY_STATE;
+import static PathX.PathXConstants.PLAYER_INVINCIBILITY_STATE;
 import static PathX.PathXConstants.PLAYER_STATE;
 import static PathX.PathXConstants.PLAYER_STEAL_STATE;
 import static PathX.PathXConstants.PLAYER_TYPE;
@@ -31,32 +32,50 @@ public class PathXPlayer
     private Sprite Sprite;
     private PathXGame game;
     private GameLevel level;
-
+    private PathXDataModel d;
+    
     public boolean moving = false;
 
     private int currentRoad;
     private ArrayList<Road> shortestPath;
-    private Intersection targetIntersection, currentIntersection;
+    public Intersection targetIntersection, currentIntersection;
 
     public boolean collidedPolice;
     public float playerSpeed = 1;
     private int banditsCollision;
     private int zombiesCollision;
 
-    public long timeStart;
-    private long timeEnd;
-    private long timeDelta;
+    public long stunStart;
+    private long stunEnd;
+    private long stunDelta;
+    
+    public long stealStart;
+    private long stealEnd;
+    private long stealDelta;
+    
+    public long intangibilityStart;
+    private long intangibilityEnd;
+    private long intangibilityDelta;
 
+    public long invincibilityStart;
+    private long invincibilityEnd;
+    private long invincibilityDelta;
+    
     public boolean steal;
     public boolean intangibility;
+    public boolean invincibility;
     public boolean stunned;
-    private long stunStart, stunEnd, stunDelta;
+
     private float tempVx, tempVy;
+    
+    public boolean fly;
 
     public PathXPlayer(PathXGame game, GameLevel level)
     {
         this.game = game;
         this.level = level;
+        
+        d = (PathXDataModel) game.getDataModel();
 
         currentIntersection = level.getStartingLocation();
 
@@ -74,6 +93,8 @@ public class PathXPlayer
         sT.addState(PLAYER_STEAL_STATE, img);
         img = game.loadImage(imgPath + props.getProperty(PathX.PathXPropertyType.IMAGE_PLAYER_INTANGIBILITY));
         sT.addState(PLAYER_INTANGIBILITY_STATE, img);
+        img = game.loadImage(imgPath + props.getProperty(PathX.PathXPropertyType.IMAGE_PLAYER_INVINCIBILITY));
+        sT.addState(PLAYER_INVINCIBILITY_STATE, img);
         Sprite = new Sprite(sT, level.getStartingLocation().x - 20, level.getStartingLocation().y - 20, 0, 0, PLAYER_STATE);
     }
 
@@ -97,23 +118,56 @@ public class PathXPlayer
             
             return;
         }
-
-        if (steal || intangibility)
+        
+        if (steal)
         {
-            timeEnd = System.currentTimeMillis();
-            timeDelta = (timeEnd - timeStart) / 1000;
-
-            if (timeDelta == 10)
+            stealEnd = System.currentTimeMillis();
+            stealDelta = (stealEnd - stealStart) / 1000;
+            
+            if (stealDelta == 10)
             {
-                timeStart = 0;
-                timeEnd = 0;
-                timeDelta = 0;
-
+                stealStart = 0;
+                stealEnd = 0;
+                stealDelta = 0;
+                
                 Sprite.setState(PLAYER_STATE);
                 steal = false;
+            }
+        }
+        
+        if (intangibility)
+        {
+            intangibilityEnd = System.currentTimeMillis();
+            intangibilityDelta = System.currentTimeMillis();
+            
+            if (intangibilityDelta == 10)
+            {
+                intangibilityStart = 0;
+                intangibilityEnd = 0;
+                intangibilityDelta = 0;
+                
+                Sprite.setState(PLAYER_STATE);
                 intangibility = false;
             }
         }
+        
+        if (invincibility)
+        {
+            invincibilityEnd = System.currentTimeMillis();
+            invincibilityDelta = System.currentTimeMillis();
+            
+            if (invincibilityDelta == 10)
+            {
+                invincibilityStart = 0;
+                invincibilityEnd = 0;
+                invincibilityDelta = 0;
+                
+                Sprite.setState(PLAYER_STATE);
+                invincibility = false;
+            }
+        }
+
+        
 
         Iterator<PathXPolice> plIt = screen.getPolice().iterator();
         while (plIt.hasNext())
@@ -122,6 +176,12 @@ public class PathXPlayer
 
             if (p.getSprite().containsPoint(Sprite.getX() + 20, Sprite.getY() + 20) && !intangibility)
             {
+                
+                if (invincibility)
+                {
+                    game.GameScreen.getPolice().remove(p);
+                    return;
+                }
                 if (p.mindlessTerror && !intangibility && !stunned)
                 {
 
@@ -155,6 +215,11 @@ public class PathXPlayer
             }
             if (!b.collided && b.getSprite().containsPoint(Sprite.getX() + 20, Sprite.getY() + 20))
             {
+                if (invincibility)
+                {
+                    game.GameScreen.getBandits().remove(b);
+                    return;
+                }
                 respondToBanditCollision(b);
                 b.collided = true;
                 break;
@@ -177,10 +242,49 @@ public class PathXPlayer
             }
             if (!z.collided && z.getSprite().containsPoint(Sprite.getX() + 20, Sprite.getY() + 20))
             {
+                if (invincibility)
+                {
+                    game.GameScreen.getZombies().remove(z);
+                    return;
+                }
                 respondToZombieCollision(z);
                 z.collided = true;
                 break;
             }
+        }
+        
+        if (targetIntersection != null && fly)
+        {
+
+            float x = (targetIntersection.getX() - currentIntersection.getX()) * .0005f;
+            float y = (targetIntersection.getY() - currentIntersection.getY()) * .0005f;
+
+            x = x * playerSpeed;
+            y = y * playerSpeed;
+
+            //SET VELOCITY
+            Sprite.setVx(x * d.gameSpeed * 10);
+            Sprite.setVy(y * d.gameSpeed * 10);
+            
+            //GET SPRITE OF TARGET INTERSECTION
+            Sprite tempIntersection = ((GameScreen) game.getCurrentScreen()).getIntersections().get(targetIntersection.ID - 1);
+            if (tempIntersection.containsPoint(Sprite.getX() + 20, Sprite.getY() + 20))
+            {
+                Sprite.setVx(0);
+                Sprite.setVy(0);
+
+                if (targetIntersection.open)
+                {
+                    Sprite.setX(tempIntersection.getX());
+                    Sprite.setY(tempIntersection.getY());
+                }
+                
+                 currentIntersection = targetIntersection;
+                targetIntersection = null;
+                fly = false;
+            }
+            
+            return;
         }
 
         /**
@@ -196,8 +300,8 @@ public class PathXPlayer
             y = y * playerSpeed;
 
             //SET VELOCITY
-            Sprite.setVx(x * shortestPath.get((currentRoad)).getSpeedLimit());
-            Sprite.setVy(y * shortestPath.get((currentRoad)).getSpeedLimit());
+            Sprite.setVx(x * shortestPath.get((currentRoad)).getSpeedLimit() * d.gameSpeed);
+            Sprite.setVy(y * shortestPath.get((currentRoad)).getSpeedLimit() * d.gameSpeed);
 
             //GET SPRITE OF TARGET INTERSECTION
             Sprite tempIntersection = ((GameScreen) game.getCurrentScreen()).getIntersections().get(targetIntersection.ID - 1);
@@ -294,6 +398,13 @@ public class PathXPlayer
             return;
         }
 
+        if (z.mindlessTerror && !stunned)
+        {
+            stunned = true;
+            stunStart = System.currentTimeMillis();
+            return;
+        }
+        
         if (steal)
         {
             PathXDataModel d = (PathXDataModel) game.getDataModel();
@@ -313,6 +424,14 @@ public class PathXPlayer
         {
             return;
         }
+        
+        if (b.mindlessTerror && !stunned)
+        {
+            stunned = true;
+            stunStart = System.currentTimeMillis();
+            return;
+        }
+        
         if (steal)
         {
             PathXDataModel d = (PathXDataModel) game.getDataModel();

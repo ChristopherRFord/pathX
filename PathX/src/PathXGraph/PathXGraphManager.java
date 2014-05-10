@@ -56,6 +56,13 @@ public class PathXGraphManager
         ArrayList<Intersection> dijkstra = graph.NoCRDijkstra(start, dest);
         return graph.returnShortestPathDijkstra(dijkstra);
     }
+    
+    public ArrayList<Road> shortestNoRestrictionDijkstra(Intersection start, Intersection dest)
+    {
+        if (start == dest) return null;
+        ArrayList<Intersection> dijkstra = graph.NoRestDijkstra(start, dest);
+        return graph.returnShortestPathDijkstra(dijkstra);
+    }
 
     class PathXGraph
     {
@@ -219,8 +226,60 @@ public class PathXGraphManager
                     if (r.node1 == u)   v = r.node2;
                     else                v = r.node1;
                     
-                    if(!v.open)                     continue;
                     if (v == r.node1 && r.oneWay)   continue;
+                    
+                    int distance = (int)(u.distance + r.tempSpeedLimit);
+                    
+                    if (distance < v.distance)
+                    {
+                        v.distance = distance;
+                        v.previous = u;
+                        q.add(v);
+                    }
+                }
+            }
+            
+            Intersection temp = target;
+            ArrayList<Intersection> returnList = new ArrayList<Intersection>();
+            while (temp != null)
+            {
+                returnList.add(temp);
+                temp = temp.previous;
+            }
+            
+            resetDijkstra();
+            return returnList;
+        }
+        
+        protected ArrayList<Intersection> NoRestDijkstra(Intersection start, Intersection target)
+        {
+            Iterator<Intersection> iIt = Intersections.iterator();
+            
+            while (iIt.hasNext())
+            {
+                Intersection temp = iIt.next();
+                temp.distance = Double.POSITIVE_INFINITY;
+            }
+            
+            start.distance = 0;
+            Queue q = new LinkedList();
+            q.add(start);
+            
+            while (!q.isEmpty())
+            {
+                Intersection u = (Intersection) q.poll();
+                
+                if (u.distance == Double.POSITIVE_INFINITY)
+                {
+                    break;
+                }
+                
+                for (Road r : u.getRoads())
+                {
+                    Intersection v;
+                    
+                    if (r.node1 == u)   v = r.node2;
+                    else                v = r.node1;
                     
                     int distance = (int)(u.distance + r.tempSpeedLimit);
                     

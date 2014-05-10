@@ -42,6 +42,8 @@ public class GameLevel
     // THE AMOUNT OF MONEY TO BE EARNED BY THE LEVEL
     public int money;
     public int recievedMoney;
+    
+    public int powerUpUnlocks;
 
     // THE NUMBER OF POLICE, BANDITS, AND ZOMBIES
     int numPolice;
@@ -52,7 +54,7 @@ public class GameLevel
     public String type;
     public int ID;
     
-    public GameLevel(String name, int amount, String type, String state, String loc, int ID)
+    public GameLevel(String name, int amount, String type, String state, String loc, int ID, int pul)
     {
         levelName = name;
         money = amount;
@@ -61,6 +63,7 @@ public class GameLevel
         this.state = state;
         levelLocation = loc;
         this.ID = ID;
+        this.powerUpUnlocks = pul;
         
         // INIT THE GRAPH DATA STRUCTURES
         intersections = new ArrayList();

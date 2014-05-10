@@ -76,7 +76,7 @@ public abstract class PathXScreen
                 }
             }    
         catch (NullPointerException e)
-                {System.out.println("a");}
+                {}
          
         }
     }

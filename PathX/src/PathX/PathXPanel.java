@@ -162,8 +162,10 @@ public class PathXPanel extends JPanel
         // THERE IS ONLY ONE CURRENTLY SET
         Sprite bg = game.getCurrentScreen().getDecors().get(BACKGROUND_TYPE);
         renderSprite(g, bg);
+
         
-        if (game.getCurrentScreen() != game.GameScreen) return;
+        if (game.getCurrentScreen() == game.GameScreen)
+        {
         
                 
          g.setFont(FONT_STATS);
@@ -176,6 +178,7 @@ public class PathXPanel extends JPanel
          g.drawString(balance, 100, 340);
          String currentPowerUp = game.GameScreen.currentPowerUp;
          g.drawString(currentPowerUp, 5, 310);
+        }
     }
 
     /**
@@ -267,8 +270,8 @@ public class PathXPanel extends JPanel
             
             if (game.GameScreen.loss)
             {
-                s = game.GameScreen.getButtons().get(RETRY_BUTTON_TYPE);
-                renderSprite(g,s);
+                            s = game.GameScreen.getButtons().get(RETRY_BUTTON_TYPE);
+            renderSprite(g,s);
                 
                 g.setFont(FONT_STATS);
                 g.setColor(Color.red);
@@ -281,6 +284,9 @@ public class PathXPanel extends JPanel
             }
             else if (game.GameScreen.won)
             {
+                            s = game.GameScreen.getButtons().get(RETRY_BUTTON_TYPE);
+            renderSprite(g,s);
+                
                 g.setFont(FONT_STATS);
                 g.setColor(Color.BLUE);
                 String message = "You got away!";

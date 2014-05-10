@@ -329,7 +329,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE1).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE1).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE1));
                     game.enter(game.GameScreen);
@@ -351,7 +351,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE2).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE2).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE2));
                     game.enter(game.GameScreen);
@@ -373,7 +373,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE3).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE3).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE3));
                     game.enter(game.GameScreen);
@@ -396,7 +396,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE4).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE4).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE4));
                     game.enter(game.GameScreen);
@@ -418,7 +418,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE5).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE5).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE5));
                     game.enter(game.GameScreen);
@@ -440,7 +440,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE6).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE6).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE6));
                     game.enter(game.GameScreen);
@@ -462,7 +462,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE7).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE7).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE7));
                     game.enter(game.GameScreen);
@@ -484,7 +484,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE8).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE8).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE8));
                     game.enter(game.GameScreen);
@@ -506,7 +506,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE9).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE9).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE9));
                     game.enter(game.GameScreen);
@@ -528,7 +528,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE10).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE10).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE10));
                     game.enter(game.GameScreen);
@@ -550,7 +550,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE11).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE11).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE11));
                     game.enter(game.GameScreen);
@@ -572,7 +572,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE12).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE12).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE12));
                     game.enter(game.GameScreen);
@@ -594,7 +594,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE13).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE13).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE13));
                     game.enter(game.GameScreen);
@@ -616,7 +616,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE14).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE14).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE14));
                     game.enter(game.GameScreen);
@@ -638,7 +638,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE15).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE15).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE15));
                     game.enter(game.GameScreen);
@@ -660,7 +660,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE16).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE16).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE16));
                     game.enter(game.GameScreen);
@@ -682,7 +682,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE17).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE17).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE17));
                     game.enter(game.GameScreen);
@@ -704,7 +704,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE18).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE18).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE18));
                     game.enter(game.GameScreen);
@@ -726,7 +726,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE19).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE19).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE19));
                     game.enter(game.GameScreen);
@@ -748,7 +748,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE20).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE20).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE20));
                     game.enter(game.GameScreen);
@@ -770,7 +770,7 @@ public class LevelSelectScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {    
-                if (data.getLevels().get(LEVEL_BUTTON_TYPE21).getState().equals(GameLevel.GameLevelState.UNLOCKED_STATE.toString()))
+                if (!data.getLevels().get(LEVEL_BUTTON_TYPE21).getState().equals(GameLevel.GameLevelState.LOCKED_STATE.toString()))
                 {
                     game.GameScreen.setGameLevel(data.getLevels().get(LEVEL_BUTTON_TYPE21));
                     game.enter(game.GameScreen);

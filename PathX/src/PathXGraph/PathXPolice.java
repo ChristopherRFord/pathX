@@ -34,6 +34,8 @@ public class PathXPolice
 
     private PathXGame game;
     private GameLevel level;
+    private PathXDataModel d;
+    
     public boolean atIntersection = true;
     public Intersection targetIntersection, currentIntersection;
     private Road currentRoad;
@@ -74,6 +76,7 @@ public class PathXPolice
         this.game = game;
         this.level = level;
         thisP = this;
+        d = (PathXDataModel) game.getDataModel();
 
         int r = 0;
         int min = 0;
@@ -312,8 +315,8 @@ public class PathXPolice
             float y = (targetIntersection.getY() - currentIntersection.getY()) * .0005f;
             
             //SET VELOCITY
-            Sprite.setVx(x * currentRoad.getSpeedLimit());
-            Sprite.setVy(y * currentRoad.getSpeedLimit());
+            Sprite.setVx(x * currentRoad.getSpeedLimit() * d.gameSpeed);
+            Sprite.setVy(y * currentRoad.getSpeedLimit() * d.gameSpeed);
 
             //GET SPRITE OF TARGET INTERSECTION
             Sprite tempIntersection = ((GameScreen) game.getCurrentScreen()).getIntersections().get(targetIntersection.ID - 1);
@@ -404,8 +407,8 @@ public class PathXPolice
             float y = (targetIntersection.getY() - currentIntersection.getY()) * .0005f;
 
             //SET VELOCITY
-            Sprite.setVx(x * shortestPath.get((currentRoadInt)).getSpeedLimit());
-            Sprite.setVy(y * shortestPath.get((currentRoadInt)).getSpeedLimit());
+            Sprite.setVx(x * shortestPath.get((currentRoadInt)).getSpeedLimit() * d.gameSpeed);
+            Sprite.setVy(y * shortestPath.get((currentRoadInt)).getSpeedLimit() * d.gameSpeed);
 
             //GET SPRITE OF TARGET INTERSECTION
             Sprite tempIntersection = ((GameScreen) game.getCurrentScreen()).getIntersections().get(targetIntersection.ID - 1);
@@ -612,8 +615,8 @@ public class PathXPolice
             float y = (targetIntersection.getY() - currentIntersection.getY()) * .0005f;
 
             //SET VELOCITY
-            Sprite.setVx(x * currentRoad.getSpeedLimit() * 2);
-            Sprite.setVy(y * currentRoad.getSpeedLimit() * 2);
+            Sprite.setVx(x * currentRoad.getSpeedLimit() * d.gameSpeed * 2);
+            Sprite.setVy(y * currentRoad.getSpeedLimit() * d.gameSpeed * 2);
 
             //GET SPRITE OF TARGET INTERSECTION
             Sprite tempIntersection = ((GameScreen) game.getCurrentScreen()).getIntersections().get(targetIntersection.ID - 1);
