@@ -68,7 +68,7 @@ public class SettingsScreen extends PathXScreen
         String exitMouseOverButton = props.getProperty(PathXPropertyType.IMAGE_BUTTON_EXIT_MOUSE_OVER);
         img = game.loadImage(imgPath + exitMouseOverButton);
         sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
-        s = new Sprite(sT, EXIT_BUTTON_X, EXIT_BUTTON_Y, 0, 0, PathXButtonState.INVISIBLE_STATE.toString());
+        s = new Sprite(sT, EXIT_BUTTON_X, EXIT_BUTTON_Y, 0, 0, PathXButtonState.VISIBLE_STATE.toString());
         buttons.put(EXIT_BUTTON_TYPE, s);
 
         // THE HOME BUTTON
@@ -79,7 +79,7 @@ public class SettingsScreen extends PathXScreen
         String homeMouseOverButton = props.getProperty(PathXPropertyType.IMAGE_BUTTON_HOME_MOUSE_OVER);
         img = game.loadImage(imgPath + homeMouseOverButton);
         sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
-        s = new Sprite(sT, HOME_BUTTON_X, HOME_BUTTON_Y, 0, 0, PathXButtonState.INVISIBLE_STATE.toString());
+        s = new Sprite(sT, HOME_BUTTON_X, HOME_BUTTON_Y, 0, 0, PathXButtonState.VISIBLE_STATE.toString());
         buttons.put(HOME_BUTTON_TYPE, s);
 
         // SOUND BUTTON
@@ -93,7 +93,7 @@ public class SettingsScreen extends PathXScreen
         String soundButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_SETTINGS_OPTION_SELECTED);
         img = game.loadImage(imgPath + soundButtonMouseOver);
         sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
-        s = new Sprite(sT, 200, 230, 0, 0, PathXButtonState.INVISIBLE_STATE.toString());
+        s = new Sprite(sT, 200, 230, 0, 0, PathXButtonState.SELECTED_STATE.toString());
         buttons.put(SOUND_BUTTON_TYPE, s);
 
         // MUSIC BUTTON
@@ -107,7 +107,7 @@ public class SettingsScreen extends PathXScreen
         String musicButtonMouseOver = props.getProperty(PathXPropertyType.IMAGE_BUTTON_SETTINGS_OPTION_SELECTED);
         img = game.loadImage(imgPath + musicButtonMouseOver);
         sT.addState(PathXButtonState.MOUSE_OVER_STATE.toString(), img);
-        s = new Sprite(sT, 200, 270, 0, 0, PathXButtonState.INVISIBLE_STATE.toString());
+        s = new Sprite(sT, 200, 270, 0, 0, PathXButtonState.SELECTED_STATE.toString());
         buttons.put(MUSIC_BUTTON_TYPE, s);
 
         //GAMESPEEDBAR
@@ -159,14 +159,18 @@ public class SettingsScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {
-                if (buttons.get(SOUND_BUTTON_TYPE).getState().toString().equals(PathXButtonState.SELECTED_STATE.toString()))
+
+                if (!data.muteSound)
                 {
-                    buttons.get(SOUND_BUTTON_TYPE).setState(PathXButtonState.VISIBLE_STATE.toString());
-                    data.muteSound = false;
-                } else
-                {
-                    buttons.get(SOUND_BUTTON_TYPE).setState(PathXButtonState.SELECTED_STATE.toString());
                     data.muteSound = true;
+                    
+                    buttons.get(SOUND_BUTTON_TYPE).setState(PathXButtonState.VISIBLE_STATE.toString());
+                }
+                else
+                {
+                    data.muteSound = false;
+
+                    buttons.get(SOUND_BUTTON_TYPE).setState(PathXButtonState.SELECTED_STATE.toString());
                 }
             }
         });
@@ -176,15 +180,17 @@ public class SettingsScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {
-                if (buttons.get(MUSIC_BUTTON_TYPE).getState().toString().equals(PathXButtonState.SELECTED_STATE.toString()))
+                if (game.getAudio().isPlaying(PathXPropertyType.MUSIC_GAME.toString()))
                 {
                     buttons.get(MUSIC_BUTTON_TYPE).setState(PathXButtonState.VISIBLE_STATE.toString());
-                    data.muteMusic = false;
-                } else
+                    game.getAudio().stop(PathXPropertyType.MUSIC_GAME.toString());
+                }
+                else
                 {
                     buttons.get(MUSIC_BUTTON_TYPE).setState(PathXButtonState.SELECTED_STATE.toString());
-                    data.muteMusic = true;
+                    game.getAudio().play(PathXPropertyType.MUSIC_GAME.toString(), true);
                 }
+                
             }
         });
 
@@ -266,8 +272,6 @@ public class SettingsScreen extends PathXScreen
         while (buttonsIt.hasNext())
         {
             Sprite button = buttonsIt.next();
-
-            button.setState(PathXButtonState.VISIBLE_STATE.toString());
             button.setEnabled(true);
         }
     }
@@ -282,7 +286,6 @@ public class SettingsScreen extends PathXScreen
         {
             Sprite button = buttonsIt.next();
 
-            button.setState(PathXButtonState.INVISIBLE_STATE.toString());
             button.setEnabled(false);
         }
     }

@@ -207,6 +207,9 @@ public class PathX
         IMAGE_BUTTON_INVINCIBILITY,
         IMAGE_BUTTON_INVINCIBILITY_MOUSE_OVER,
         
+        MUSIC_GAME,
+        SOUND_POWER_UP,
+        
         
         IMAGE_WINDOW_ICON,
         

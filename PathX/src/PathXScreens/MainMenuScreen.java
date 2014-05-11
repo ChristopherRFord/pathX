@@ -15,7 +15,14 @@ import PathXData.PathXDataModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import mini_game.Sprite;
 import mini_game.SpriteType;
 import properties_manager.PropertiesManager;
@@ -31,12 +38,7 @@ public class MainMenuScreen extends PathXScreen
         super(game);
         screenType = MENU_SCREEN_STATE;
     }
-    
-    @Override
-    public void initAudioContent()
-    {
-        
-    }
+   
     
     @Override
     public void initData(PathXDataModel data)
@@ -183,4 +185,10 @@ public class MainMenuScreen extends PathXScreen
             button.setEnabled(false);
         }
     }    
+
+    @Override
+    public void initAudioContent()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

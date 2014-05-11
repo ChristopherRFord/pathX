@@ -144,6 +144,10 @@
         <property name="IMAGE_BUTTON_FLYING_MOUSE_OVER"                 value="./path_x/buttons/ButtonFlyingMouseOver.png"></property>
         <property name="IMAGE_BUTTON_INVINCIBILITY"                     value="./path_x/buttons/ButtonInvincibility.png"></property>
         <property name="IMAGE_BUTTON_INVINCIBILITY_MOUSE_OVER"          value="./path_X/buttons/ButtonInvincibilityMouseOver.png"></property>
+        
+        <!--AUDIO-->
+        <property name="MUSIC_GAME"                       value="./path_x/GameMusic.mid"></property>
+        <property name="SOUND_POWER_UP"                         value="./path_x/PowerUp.wav"></property>
 
 
 

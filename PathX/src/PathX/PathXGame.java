@@ -2,6 +2,7 @@ package PathX;
 
 
 
+import PathX.PathX.PathXPropertyType;
 import PathXData.PathXDataModel;
 import PathXScreens.GameScreen;
 import PathXScreens.HelpScreen;
@@ -10,7 +11,14 @@ import PathXScreens.MainMenuScreen;
 import PathXScreens.PathXScreen;
 import PathXScreens.SettingsScreen;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import mini_game.MiniGame;
 import mini_game.Sprite;
 import properties_manager.PropertiesManager;
@@ -167,6 +175,46 @@ public class PathXGame extends MiniGame
     
     
     @Override
-    public void initAudioContent(){}
+    public void initAudioContent()
+    {
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        String audioPath = props.getProperty(PathXPropertyType.PATH_AUDIO);
+        try
+        {
+        loadAudioCue(PathXPropertyType.MUSIC_GAME);
+        loadAudioCue(PathXPropertyType.SOUND_POWER_UP);
+        } catch (UnsupportedAudioFileException ex)
+        {
+            Logger.getLogger(MainMenuScreen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MainMenuScreen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (LineUnavailableException ex)
+        {
+            Logger.getLogger(MainMenuScreen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidMidiDataException ex)
+        {
+            Logger.getLogger(MainMenuScreen.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MidiUnavailableException ex)
+        {
+            Logger.getLogger(MainMenuScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        audio.play(PathXPropertyType.MUSIC_GAME.toString(), true);
+    }
+    
+       /**
+     * This helper method loads the audio file associated with audioCueType,
+     * which should have been specified via an XML properties file.
+     */
+    private void loadAudioCue(PathXPropertyType audioCueType) 
+            throws  UnsupportedAudioFileException, IOException, LineUnavailableException, 
+                    InvalidMidiDataException, MidiUnavailableException
+    {
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        String audioPath = props.getProperty(PathXPropertyType.PATH_AUDIO);
+        String cue = props.getProperty(audioCueType.toString());
+        audio.loadAudio(audioCueType.toString(), audioPath + cue);        
+    }
     
 }
