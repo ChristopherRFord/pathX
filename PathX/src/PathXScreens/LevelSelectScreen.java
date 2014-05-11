@@ -148,7 +148,10 @@ public class LevelSelectScreen extends PathXScreen
         buttons.get(EXIT_BUTTON_TYPE).setActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ae)
-            {   System.exit(0);    }
+            {  
+                game.PXFM.saveGame();
+                System.exit(0);
+            }
         });
         
         // HOME BUTTON

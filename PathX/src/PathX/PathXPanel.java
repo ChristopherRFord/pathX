@@ -171,13 +171,11 @@ public class PathXPanel extends JPanel
          g.setFont(FONT_STATS);
          g.setColor(Color.black);
          String speed = game.GameScreen.getPlayer().playerSpeed + "";
-         g.drawString(speed, 100, 400);
+         g.drawString(speed, 80, 400);
          String balance = game.GameScreen.getLevel().recievedMoney + "";
-         g.drawString(balance, 100, 370);
+         g.drawString(balance, 80, 370);
          balance = data.getBalance() + "";
-         g.drawString(balance, 100, 340);
-         String currentPowerUp = game.GameScreen.currentPowerUp;
-         g.drawString(currentPowerUp, 5, 310);
+         g.drawString(balance, 80, 340);
         }
     }
 

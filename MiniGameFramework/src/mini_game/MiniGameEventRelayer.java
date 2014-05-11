@@ -165,7 +165,10 @@ public class MiniGameEventRelayer implements MouseListener, MouseMotionListener,
                 }
             } else
             {
-                game.getKeyHandler().keyPressed(ke);
+                try
+                {
+                                    game.getKeyHandler().keyPressed(ke);
+                }catch (NullPointerException e){}
             }
         } finally
         {

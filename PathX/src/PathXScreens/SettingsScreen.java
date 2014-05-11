@@ -141,6 +141,7 @@ public class SettingsScreen extends PathXScreen
             @Override
             public void actionPerformed(ActionEvent ae)
             {
+                game.PXFM.saveGame();
                 System.exit(0);
             }
         });
