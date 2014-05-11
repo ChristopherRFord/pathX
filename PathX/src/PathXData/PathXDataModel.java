@@ -30,10 +30,10 @@ public class PathXDataModel extends MiniGameDataModel
     
     private TreeMap<String, GameLevel> levels;
     
-    private int balance;
+    public int balance;
     private final int goal = 100000;
     
-    private int currentLevel = 1;
+    public int currentLevel = 1;
     
     public float gameSpeed = 1;
     public boolean muteMusic = false;

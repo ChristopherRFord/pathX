@@ -2108,7 +2108,7 @@ public class GameScreen extends PathXScreen
     public void respondToWin()
     {
         data.updateMoney(level.recievedMoney);
-
+        data.currentLevel++;
         decors.get(DIALOG_BOX_TYPE).setState(PathXSpriteState.VISIBLE_STATE.toString());
         buttons.get(CLOSE_BUTTON_TYPE).setState(PathXButtonState.VISIBLE_STATE.toString());
         buttons.get(CLOSE_BUTTON_TYPE).setX(190);

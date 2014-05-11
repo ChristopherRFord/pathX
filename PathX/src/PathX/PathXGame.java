@@ -3,7 +3,9 @@ package PathX;
 
 
 import PathX.PathX.PathXPropertyType;
+import PathXData.GameLevel;
 import PathXData.PathXDataModel;
+import PathXData.PathXFileManager;
 import PathXScreens.GameScreen;
 import PathXScreens.HelpScreen;
 import PathXScreens.LevelSelectScreen;
@@ -12,6 +14,7 @@ import PathXScreens.PathXScreen;
 import PathXScreens.SettingsScreen;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +37,8 @@ public class PathXGame extends MiniGame
     // THE SCREEN CURRENTLY BEING PLAYED
     private PathXScreen currentScreen;
     
+    public PathXFileManager PXFM;
+    
     //Screens
     public MainMenuScreen MainMenuScreen;
     public LevelSelectScreen LevelSelectScreen;
@@ -55,6 +60,7 @@ public class PathXGame extends MiniGame
         GameScreen = new GameScreen(this);
         SettingsScreen = new SettingsScreen(this);
         HelpScreen = new HelpScreen(this);
+       
     }
     
     /**
@@ -78,6 +84,21 @@ public class PathXGame extends MiniGame
     public void initData()
     {
         data = new PathXDataModel(this);
+        
+        PXFM = new PathXFileManager(this, (PathXDataModel) data);
+        PXFM.loadGame();
+        
+        TreeMap<String, GameLevel> t = ((PathXDataModel) data).getLevels();
+        int currentLevel = ((PathXDataModel) data).currentLevel;
+        
+        for (int i = 1; i < currentLevel; i++)
+        {
+            String temp = "LEVEL_BUTTON_TYPE" + i;
+            t.get(temp).setState(GameLevel.GameLevelState.COMPLETED_STATE.toString());
+        }
+        
+        String temp = "LEVEL_BUTTON_TYPE" + currentLevel;
+        t.get(temp).setState(GameLevel.GameLevelState.UNLOCKED_STATE.toString());
         
         MainMenuScreen.initData((PathXDataModel) data);
         LevelSelectScreen.initData((PathXDataModel) data);

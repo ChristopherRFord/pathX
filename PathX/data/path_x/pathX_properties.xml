@@ -147,9 +147,7 @@
         
         <!--AUDIO-->
         <property name="MUSIC_GAME"                       value="./path_x/GameMusic.mid"></property>
-        <property name="SOUND_POWER_UP"                         value="./path_x/PowerUp.wav"></property>
-
-
+        <property name="SOUND_POWER_UP"                   value="./path_x/PowerUp.wav"></property>
 
         <!-- ALL THE TEXT TO BE DISPLAYED -->
         <property name="TEXT_ERROR_LOADING_AUDIO"               value="Error Loading an Audio File"></property>

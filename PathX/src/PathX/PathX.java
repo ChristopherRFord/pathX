@@ -211,6 +211,7 @@ public class PathX
         SOUND_POWER_UP,
         
         
+        
         IMAGE_WINDOW_ICON,
         
         /* GAME TEXT */
