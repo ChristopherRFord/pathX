@@ -415,7 +415,9 @@ public class PathXPlayer
             z.moneyHeld = 0;
             return;
         }
-        game.getAudio().play(PathX.PathXPropertyType.SOUND_COLLISION.toString(), false);
+        if (!((PathXDataModel) game.getDataModel()).muteSound)
+            game.getAudio().play(PathX.PathXPropertyType.SOUND_COLLISION.toString(), false);
+        
         zombiesCollision++;
 
         playerSpeed = 1;
@@ -443,7 +445,8 @@ public class PathXPlayer
             b.moneyHeld = 0;
             return;
         }
-        game.getAudio().play(PathX.PathXPropertyType.SOUND_COLLISION.toString(), false);
+        if (!((PathXDataModel) game.getDataModel()).muteSound)
+            game.getAudio().play(PathX.PathXPropertyType.SOUND_COLLISION.toString(), false);
         banditsCollision++;
 
         level.recievedMoney = level.money;

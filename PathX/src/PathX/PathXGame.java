@@ -173,6 +173,8 @@ public class PathXGame extends MiniGame
          if (currentScreen == null)
              return;
          
+         if (!audio.isPlaying(PathXPropertyType.MUSIC_GAME.toString())) audio.play(PathXPropertyType.MUSIC_GAME.toString(), true);
+         //System.out.println(audio.isPlaying(PathXPropertyType.MUSIC_GAME.toString()));
          currentScreen.updateGUI();
     }
     
@@ -223,6 +225,7 @@ public class PathXGame extends MiniGame
         }
         
         audio.play(PathXPropertyType.MUSIC_GAME.toString(), true);
+        
     }
     
        /**

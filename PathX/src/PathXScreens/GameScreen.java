@@ -1009,7 +1009,8 @@ public class GameScreen extends PathXScreen
                 Player.update(this);                                    //UPDATE PLAYER
                 if (Player.collidedPolice)
                 {
-                    game.getAudio().play(PathX.PathXPropertyType.SOUND_COLLISION.toString(), false);
+                    if (!data.muteSound)
+                        game.getAudio().play(PathX.PathXPropertyType.SOUND_COLLISION.toString(), false);
                     loss = true;
                     respondToLoss();
                     return;
