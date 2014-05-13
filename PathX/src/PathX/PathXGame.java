@@ -204,6 +204,7 @@ public class PathXGame extends MiniGame
         {
         loadAudioCue(PathXPropertyType.MUSIC_GAME);
         loadAudioCue(PathXPropertyType.SOUND_POWER_UP);
+        loadAudioCue(PathXPropertyType.SOUND_COLLISION);
         } catch (UnsupportedAudioFileException ex)
         {
             Logger.getLogger(MainMenuScreen.class.getName()).log(Level.SEVERE, null, ex);

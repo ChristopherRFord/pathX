@@ -5,6 +5,7 @@
  */
 package PathXScreens;
 
+import PathX.PathX;
 import static PathX.PathX.*;
 import static PathX.PathXConstants.*;
 import PathX.PathXGame;
@@ -1006,8 +1007,9 @@ public class GameScreen extends PathXScreen
             if (!pause)
             {
                 Player.update(this);                                    //UPDATE PLAYER
-                if (Player.collidedPolice || level.recievedMoney <= 0 || Player.playerSpeed <= 0)
+                if (Player.collidedPolice)
                 {
+                    game.getAudio().play(PathX.PathXPropertyType.SOUND_COLLISION.toString(), false);
                     loss = true;
                     respondToLoss();
                     return;
@@ -2010,7 +2012,7 @@ public class GameScreen extends PathXScreen
         data.updateMoney(-40);
         Player.invincibility = true;
         Player.getSprite().setState(PLAYER_INVINCIBILITY_STATE);
-        Player.intangibilityStart = System.currentTimeMillis();
+        Player.invincibilityStart = System.currentTimeMillis();
     }
 
     public void roadClicked(Road r)

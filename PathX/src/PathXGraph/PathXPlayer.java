@@ -138,7 +138,8 @@ public class PathXPlayer
         if (intangibility)
         {
             intangibilityEnd = System.currentTimeMillis();
-            intangibilityDelta = System.currentTimeMillis();
+            intangibilityDelta = (intangibilityEnd - intangibilityStart) / 1000;
+
             
             if (intangibilityDelta == 10)
             {
@@ -154,7 +155,9 @@ public class PathXPlayer
         if (invincibility)
         {
             invincibilityEnd = System.currentTimeMillis();
-            invincibilityDelta = System.currentTimeMillis();
+            invincibilityDelta = (invincibilityEnd - invincibilityStart) / 1000;
+            
+            System.out.println(invincibilityDelta);
             
             if (invincibilityDelta == 10)
             {
@@ -412,6 +415,7 @@ public class PathXPlayer
             z.moneyHeld = 0;
             return;
         }
+        game.getAudio().play(PathX.PathXPropertyType.SOUND_COLLISION.toString(), false);
         zombiesCollision++;
 
         playerSpeed = 1;
@@ -439,6 +443,7 @@ public class PathXPlayer
             b.moneyHeld = 0;
             return;
         }
+        game.getAudio().play(PathX.PathXPropertyType.SOUND_COLLISION.toString(), false);
         banditsCollision++;
 
         level.recievedMoney = level.money;

@@ -209,6 +209,7 @@ public class PathX
         
         MUSIC_GAME,
         SOUND_POWER_UP,
+        SOUND_COLLISION,
         
         
         
